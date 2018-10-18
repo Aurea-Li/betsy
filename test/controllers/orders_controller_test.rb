@@ -109,5 +109,27 @@ describe OrdersController do
     end
   end
 
+  describe "destroy" do
+    it "succeeds for an extant work ID" do
+      expect{
+        delete order_path(existing_order.id)
+      }.must_change('Order.count', -1)
+
+      must_respond_with :redirect
+      must_redirect_to orders_path
+    end
+
+    it "renders 404 not_found and does not update the DB for a bogus work ID" do
+      existing_order.destroy
+
+      expect{
+        delete order_path(existing_order.id)
+      }.wont_change('Order.count')
+
+      must_respond_with :not_found
+
+    end
+  end
+
 
 end

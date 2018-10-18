@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   def render_404
     # this will actually render a 404 page in production
-    raise ActionController::RoutingError.new('Not Found')
+    # raise ActionController::RoutingError.new('Not Found')
+    render :index, status: :not_found
   end
 end
