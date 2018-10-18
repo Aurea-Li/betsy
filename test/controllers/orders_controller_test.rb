@@ -48,7 +48,14 @@ describe OrdersController do
 
   describe "create" do
     it "can create an order" do
-      
+      test_order = Order.new(order_data[:order])
+      expect(test_order).must_be :valid?, "Order data was invalid. Please fix."
+
+      expect{
+        post orders_path, params: order_data
+      }.must_change('Order.count', +1 )
+
+      must_redirect_to order_path(Order.last)
     end
   end
 end
