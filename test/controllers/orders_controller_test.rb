@@ -95,5 +95,19 @@ describe OrdersController do
 
       must_redirect_to order_path(existing_order.id)
     end
+
+    it "renders bad_request for bogus data" do
+
+    end
+
+    it "renders 404 not_found for a bogus order ID" do
+      existing_order.destroy
+
+      patch order_path(existing_order.id), params: order_data
+
+      must_respond_with :not_found
+    end
   end
+
+
 end
