@@ -1,0 +1,24 @@
+<h2> Order Confirmation </h2>
+
+<p> <%= @order.created_at %> </p>
+
+<table class='table'>
+
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> Quantity </th>
+      <th> Price </th>
+      <th> Status </th>
+    </tr>
+  </thead>
+
+  <% @order.order_items.each do |item| %>
+    <tr>
+      <td> <%= item.product.name %> </td>
+      <td> <%= item.quantity %> </td>
+      <td> <%= item.price %>
+      <td> <%= item.status %> </td>
+    </tr>
+  <% end %>
+</table>

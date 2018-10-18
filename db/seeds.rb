@@ -27,7 +27,6 @@ CSV.foreach(product_file, headers: true, header_converters: :symbol, converters:
   product.save!
 end
 
-
 CSV.foreach(order_item_file, headers: true, header_converters: :symbol, converters: :all) do |row|
   data = Hash[row.headers.zip(row.fields)]
   puts data
