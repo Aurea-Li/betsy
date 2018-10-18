@@ -5,7 +5,7 @@
 # below each fixture, per the syntax in the comments below
 #
 bob:
-  status: pending
+  status: paid
   name: Bob Li
   email: bobli@adacademy.com
   address: 100 6th Avenue, Seattle WA

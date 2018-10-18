@@ -1,9 +1,10 @@
 class OrdersController < ApplicationController
 
-  before_action :find_order
+  # before_action :find_order
 
   def index
     @orders = Order.all
+
   end
 
   def new

@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
-  STATUS = %w(pending paid)
+  STATUS = %w(paid fulfilled)
   has_many :order_items
 
-  
+
 end
