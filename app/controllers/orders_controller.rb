@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  # before_action :find_order
+  before_action :find_order, except: [:index, :new, :create]
 
   def index
     @orders = Order.all
@@ -29,6 +29,13 @@ class OrdersController < ApplicationController
   end
 
   def update
+    @order.update_attributes(order_params)
+
+    if @order.save
+      redirect_to order_path(@order.id)
+    else
+      render :edit, status: :bad_request
+    end
   end
 
   def destroy
@@ -46,5 +53,10 @@ class OrdersController < ApplicationController
       :cc_cvv,
       :cc_expiration
     )
+  end
+
+  def find_order
+    @order = Order.find_by(id: params[:id])
+    render_404 unless @order
   end
 end

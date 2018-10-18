@@ -22,6 +22,10 @@ describe OrdersController do
     }
   }
 
+  let (:existing_order) {
+    orders(:bob)
+  }
+
   describe "index" do
     it "succeeds with orders present" do
       get orders_path
@@ -56,6 +60,40 @@ describe OrdersController do
       }.must_change('Order.count', +1 )
 
       must_redirect_to order_path(Order.last)
+    end
+  end
+
+  describe "edit" do
+    it "succeeds with an extant order ID" do
+      get edit_order_path(existing_order.id)
+
+      must_respond_with :success
+    end
+
+    it "renders 404 not_found for a bogus order ID" do
+      existing_order.destroy
+
+      get edit_order_path(existing_order.id)
+
+      must_respond_with :not_found
+    end
+  end
+
+  describe "update" do
+    it "succeeds for valid data and an extant work ID" do
+      test_order = Order.new(order_data[:order])
+      expect(test_order).must_be :valid?, "Order data was invalid. Please fix."
+
+      expect{
+        patch order_path(existing_order.id), params: order_data
+      }.wont_change('Order.count')
+
+      existing_order.reload
+      (existing_order.email).must_equal test_order.email
+      (existing_order.name).must_equal test_order.name
+      (existing_order.address).must_equal test_order.address
+
+      must_redirect_to order_path(existing_order.id)
     end
   end
 end
