@@ -110,7 +110,7 @@ describe OrdersController do
   end
 
   describe "destroy" do
-    it "succeeds for an extant work ID" do
+    it "succeeds for an extant work ID with status not cancelled" do
       expect{
         delete order_path(existing_order.id)
       }.must_change('Order.count', -1)

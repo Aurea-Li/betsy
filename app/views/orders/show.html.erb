@@ -27,3 +27,5 @@
     <td> <%= @order.price %> </td>
   </tr>
 </table>
+
+<%= link_to "Cancel Order", order_path(@order), class: "btn btn-danger", method: :delete %>
