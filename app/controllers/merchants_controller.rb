@@ -2,21 +2,21 @@ class MerchantsController < ApplicationController
 
   # Sessions takes most of CRUD for Merchants?
 
-  # def new
-  #   @merchant = Merchant.new
-  # end
-  #
-  # def create
-  #   @merchant = Merchant.new(merchant_params)
-  #
-  #   if @merchant.save
-  #     flash[:success] = "Successfully created new merchant"
-  #     redirect_to merchant_path(@merchant)
-  #   else
-  #     flash.now[:error] = "Merchant not created. Please try again"
-  #     render :new, status: :bad_request
-  #   end
-  # end
+  def new
+    @merchant = Merchant.new
+  end
+
+  def create
+    @merchant = Merchant.new(merchant_params)
+
+    if @merchant.save
+      flash[:success] = "Successfully created new merchant"
+      redirect_to merchant_path(@merchant)
+    else
+      flash.now[:error] = "Merchant not created. Please try again"
+      render :new, status: :bad_request
+    end
+  end
 
   def show
     @merchant = Merchant.find_by(id: params[:id])
