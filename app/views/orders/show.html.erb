@@ -8,8 +8,8 @@
     <tr>
       <th> Name </th>
       <th> Quantity </th>
-      <th> Price </th>
       <th> Status </th>
+      <th> Price </th>
     </tr>
   </thead>
 
@@ -17,8 +17,13 @@
     <tr>
       <td> <%= item.product.name %> </td>
       <td> <%= item.quantity %> </td>
-      <td> <%= item.price %>
       <td> <%= item.status %> </td>
+      <td> <%= item.price %>
     </tr>
   <% end %>
+
+  <tr>
+    <td colspan="3"> <strong> Total </strong> </td>
+    <td> <%= @order.price %> </td>
+  </tr>
 </table>
