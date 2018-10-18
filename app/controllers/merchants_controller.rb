@@ -4,7 +4,16 @@ class MerchantsController < ApplicationController
   end
 
   def create
+    #change for OAuth sign in
     @merchant = Merchant.new(merchant_params)
+
+    if @merchant.save
+      flash[:success] = "Successfully created new merchant"
+      redirect_to merchant_path(@merchant)
+    else
+      flash.now[:error] = "Merchant not created. Please try again"
+      render :new, status: :bad_request
+    end
   end
 
   def show
@@ -24,14 +33,18 @@ class MerchantsController < ApplicationController
     @merchant = Merchant.find(params[:id])
 
     if @merchant.save(merchant_params)
+      flash[:success] = "Successfully updated merchant."
       redirect_to merchant_path(@merchant)
     else
-      render :edit
+      flash.now[:error] = "Invalid merchant information"
+      render :edit, status: :not_found
     end
   end
 
   def destroy
+    # Add sessions id / OAuth handling
     @merchant.destroy
+    redirect_to merchants_path
   end
 
 private
