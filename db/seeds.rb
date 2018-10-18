@@ -22,7 +22,9 @@ CSV.foreach(product_file, headers: true, header_converters: :symbol, converters:
   data = Hash[row.headers.zip(row.fields)]
   puts data
   merchant = Merchant.all.shuffle.first
-  Product.create!(data, merchant: merchant)
+  product = Product.new(data)
+  product.update_attributes(merchant: merchant)
+  product.save!
 end
 
 
@@ -31,5 +33,7 @@ CSV.foreach(order_item_file, headers: true, header_converters: :symbol, converte
   puts data
   product = Product.all.shuffle.first
   order = Order.all.shuffle.first
-  OrderItem.create!(data, product: product, order: order)
+  orderitem = OrderItem.new(data)
+  orderitem.update_attributes(order: order, product: product)
+  orderitem.save!
 end
