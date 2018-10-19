@@ -1,10 +1,9 @@
 class MerchantsController < ApplicationController
 
-  # Sessions takes most of CRUD for Merchants?
-
   def new
     @merchant = Merchant.new
   end
+
 
   def create
     @merchant = Merchant.new(merchant_params)
@@ -18,10 +17,12 @@ class MerchantsController < ApplicationController
     end
   end
 
+
   def show
     @merchant = Merchant.find_by(id: params[:id])
     head :not_found unless @merchant
   end
+
 
   def index
     @merchants = Merchant.all
