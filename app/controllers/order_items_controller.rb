@@ -13,6 +13,7 @@ class OrderItemsController < ApplicationController
     @order_item = OrderItem.new(order_item_params)
     # order item is created when added to cart
     if @order_item.save
+
       flash[:success] = "Item added to cart."
       redirect_back
       # where do we want to go/redirect_to if an order item is successfully saved?

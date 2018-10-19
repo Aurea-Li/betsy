@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = Order.new
+    @order = Order.new(status: 'paid')
   end
 
   def create
@@ -47,7 +47,6 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(
-      :status,
       :name,
       :email,
       :address,
