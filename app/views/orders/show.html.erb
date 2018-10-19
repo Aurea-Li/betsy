@@ -1,7 +1,19 @@
 <h2> Order Confirmation </h2>
 
-<p> <%= @order.created_at %> </p>
+<section>
+  <ul>
+    <li> <strong> Name: </strong> <%= @order.name %> </li>
+    <li> <strong> Email Address: </strong> <%= @order.email %> </li>
+    <li> <strong> Address: </strong> <%= @order.address %> </li>
+    <li> <strong> Credit Card Number: </strong> XXXX-XXXX-XXXX-<%= @order.CC_num_last_four %> </li>
+    <li> <strong> Date: </strong> <%= @order.created_at %> </li>
 
+  </ul>
+</section>
+
+
+<section>
+  <h3> Order Items </h3>
 <table class='table'>
 
   <thead>
@@ -27,5 +39,6 @@
     <td> <%= @order.price %> </td>
   </tr>
 </table>
+</section>
 
 <%= link_to "Cancel Order", order_path(@order), class: "btn btn-danger", method: :delete %>
