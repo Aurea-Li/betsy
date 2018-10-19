@@ -23,9 +23,9 @@ class MerchantsController < ApplicationController
     head :not_found unless @merchant
   end
 
-  # def index
-  #   @merchants = Merchant.all
-  # end
+  def index
+    @merchants = Merchant.all
+  end
 
   # def edit
   #   @merchant = Merchant.find(params[:id])
