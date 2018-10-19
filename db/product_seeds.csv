@@ -1,0 +1,51 @@
+name,price,photo,stock,active,category,rating
+Simba,7.6,http://placekitten.com/200/300,38,true,British Semipi-longhair,5
+Oscar,28.22,http://placekitten.com/200/300,51,true,Manx,3
+Lily,38.06,http://placekitten.com/200/300,99,true,Aegean,1
+Angel,36.92,http://placekitten.com/200/300,74,true,Devon Rex,5
+Chloe,1.09,http://placekitten.com/200/300,79,true,Cheetoh,2
+Sam,61.39,http://placekitten.com/200/300,30,true,Cheetoh,4
+Bella,50.37,http://placekitten.com/200/300,11,true,Snowshoe,2
+Jasper,78.43,http://placekitten.com/200/300,94,true,Turkish Van,4
+Simba,93.17,http://placekitten.com/200/300,69,true,British Shorthair,1
+Poppy,87.13,http://placekitten.com/200/300,64,true,Birman,1
+Alfie,42.78,http://placekitten.com/200/300,65,true,Chantilly-Tiffany,2
+Misty,65.09,http://placekitten.com/200/300,85,false,Oriental Bicolor,1
+Charlie,60.33,http://placekitten.com/200/300,26,true,Kurilian Bobtail,1
+Angel,56.59,http://placekitten.com/200/300,56,true,Suphalak,1
+Sam,33.04,http://placekitten.com/200/300,70,true,Siamese,5
+Smudge,36.97,http://placekitten.com/200/300,33,true,Serengeti,4
+Chloe,65.61,http://placekitten.com/200/300,56,false,Asian Semi-longhair,3
+Missy,78.32,http://placekitten.com/200/300,81,true,Singapura,4
+Chloe,8.73,http://placekitten.com/200/300,96,true,"Himalayan, or Colorpoint Persian",5
+Max,90.54,http://placekitten.com/200/300,53,true,Foldex Cat,1
+Jasper,14.14,http://placekitten.com/200/300,44,true,Javanese,4
+Lily,2.0,http://placekitten.com/200/300,40,true,Peterbald,5
+Alfie,69.29,http://placekitten.com/200/300,97,true,Korat,5
+Molly,27.14,http://placekitten.com/200/300,98,false,Korean Bobtail,3
+Jasper,67.74,http://placekitten.com/200/300,93,true,Oregon Rex,1
+Oliver,99.46,http://placekitten.com/200/300,87,true,Sokoke,1
+Poppy,23.38,http://placekitten.com/200/300,76,true,Savannah,1
+Oscar,27.25,http://placekitten.com/200/300,75,true,Siberian,4
+Smudge,34.18,http://placekitten.com/200/300,12,false,Mekong Bobtail,2
+Lucky,55.92,http://placekitten.com/200/300,47,true,Oriental Longhair,3
+Max,27.0,http://placekitten.com/200/300,47,true,Ocicat,2
+Sam,13.07,http://placekitten.com/200/300,88,true,Bombay,1
+Oscar,96.54,http://placekitten.com/200/300,71,true,Havana Brown,3
+Chloe,39.78,http://placekitten.com/200/300,10,true,Chartreux,5
+Felix,11.08,http://placekitten.com/200/300,97,true,Chausie,4
+Oscar,68.75,http://placekitten.com/200/300,66,true,Sokoke,2
+Misty,56.56,http://placekitten.com/200/300,47,true,Persian (Modern Persian Cat),1
+Lily,90.11,http://placekitten.com/200/300,73,true,Australian Mist,4
+Chloe,97.19,http://placekitten.com/200/300,80,true,California Spangled,1
+Lucy,84.2,http://placekitten.com/200/300,97,true,Cornish Rex,4
+Lily,77.42,http://placekitten.com/200/300,54,true,Ocicat,3
+Coco,31.88,http://placekitten.com/200/300,15,true,Mekong Bobtail,4
+Lily,14.97,http://placekitten.com/200/300,47,true,Korn Ja,1
+Lucky,62.4,http://placekitten.com/200/300,34,false,Ukrainian Levkoy,5
+Coco,16.26,http://placekitten.com/200/300,92,true,Exotic Shorthair,5
+Lucy,97.49,http://placekitten.com/200/300,73,true,Birman,1
+Sooty,1.53,http://placekitten.com/200/300,46,false,British Semipi-longhair,5
+Shadow,74.48,http://placekitten.com/200/300,55,true,"Dwarf cat, or Dwelf",5
+Chloe,8.8,http://placekitten.com/200/300,97,true,American Curl,3
+Simba,74.04,http://placekitten.com/200/300,97,true,Suphalak,4

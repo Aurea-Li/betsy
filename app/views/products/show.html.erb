@@ -1,0 +1,17 @@
+<h2>Product Detail</h2>
+<% if @product %>
+
+  <ul>
+    <li>Name: <%= "#{@product.name}" %></li>
+    <li>Price: <%= "#{@product.price}" %></li>
+    <li>Photo: <%= "#{@product.photo}" %></li>
+    <li>In Stock: <%= "#{@product.stock}" %></li>
+    <li>Category: <%= "#{@product.category}" %></li>
+    <li>Rating: <%= "#{@product.rating}" %></li>
+    <li>Merchant: <%= "#{@product.merchant_id}" %></li>
+  </ul>
+
+  <p>
+    <%= link_to "Edit", edit_product_path(@product), class: "btn btn-primary" %>
+  </p>
+<% end %>

@@ -4,8 +4,11 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+bob:
+  status: paid
+  name: Bob Li
+  email: bobli@adacademy.com
+  address: 100 6th Avenue, Seattle WA
+  cc_num: 1232837292749182
+  cc_cvv: 293
+  cc_expiration: 01-09-2018
