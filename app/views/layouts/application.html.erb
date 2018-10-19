@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Betsy</title>
+    <title>Petsy</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,43 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header class = "header-header">
+      <h1>Petsy</h1>
+      <h2> Purring, Leaping, Wagging, and Swimming into Hearts Around the Globe</h2>
+
+      <nav class = "user-nav">
+        <ul class = "user-nav-list nav navbar-nav navbar-right">
+          <% if @logged_in_merchant %>
+            <li><span class="glyphicon glyphicon-user"></span>
+              <%= link_to "Log in", '/auth/github'%>
+          <% else %>
+            <li><span class="glyphicon glyphicon-user"></span>
+              <%= link_to "Log out", logout_path, method: :post %>
+            </li>
+            <li><span class="glyphicon glyphicon-cart"></span>
+              <%= link_to "Cart", order_items_path %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+
+      <nav class = "shopping-nav">
+        <ul class = "shopping-nav-list nav navbar-nav">
+          <li>
+            <%= link_to "Products", products_path %>
+          </li>
+          <li>
+            <%= link_to "Merchants", merchants_path %>
+          </li>
+      </nav>
+    </header>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer>
+      &copy; 2018, Pet Sounds
+    </footer>
   </body>
 </html>
