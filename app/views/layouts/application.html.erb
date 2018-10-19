@@ -16,15 +16,16 @@
 
       <nav class = "nav-bar navbar-default user-nav">
         <ul class = "user-nav-list nav navbar-nav navbar-right">
-          <% if @logged_in_merchant %>
-            <li><span class="glyphicon glyphicon-user"></span>
-              <%= link_to "Log in", '/auth/github'%>
+          <li>
+            <%= link_to "Cart", order_items_path %>
+          </li>
+          <% if session[:user_id] %>
+          <li>
+            <%= link_to "Log out", '/logout', method: :delete %>
+          </li>
           <% else %>
-            <li><span class="glyphicon glyphicon-user"></span>
-              <%= link_to "Log out", logout_path, method: :post %>
-            </li>
-            <li><span class="glyphicon glyphicon-cart"></span>
-              <%= link_to "Cart", order_items_path %>
+            <li>
+              <%= link_to "Log in", '/auth/github'%>
             </li>
           <% end %>
         </ul>
