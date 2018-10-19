@@ -7,20 +7,20 @@
 dogdays:
   username: dogsdays
   email: dogsdays@over.com
-  uid: 1234566765
+  uid: 12345
   provider: github
 palomino:
   username: palomino
   email: horsesgalore@some.com
-  uid: 312343546676
+  uid: 31234
   provider: github
 larry:
   username: lizardlarry
   email: larry54@over.com
-  uid: 7123345664
+  uid: 7124
   provider: github
 cuteclothes:
   username: cuteclothes
   email: cuteclothes@shop.com
-  uid: 1123345666
+  uid: 1123
   provider: github
