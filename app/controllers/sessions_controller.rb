@@ -1,13 +1,13 @@
 class SessionsController < ApplicationController
   def create
-    merch_hash = request.env['omniauth.auth']
+    auth_hash = request.env['omniauth.auth']
 
-    merchant = Merchant.find_by(uid: merch_hash[:uid], provider: merch_hash[:provider])
+    merchant = Merchant.find_by(uid: auth_hash[:uid], provider: auth_hash[:provider])
 
     if merchant
       flash[:success] = "Welcome   #{merchant.username}"
     else
-      merchant = Merchant.create_from_github(merch_hash)
+      merchant = Merchant.create_from_github(auth_hash)
 
       if merchant.save
         flash[:success] = "Logged in as merchant #{merchant.username}"
