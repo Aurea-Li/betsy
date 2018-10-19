@@ -1,0 +1,11 @@
+<section>
+  <%= form_with model: @product do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+  <% end %>
+</section>
