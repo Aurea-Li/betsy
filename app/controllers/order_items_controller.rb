@@ -1,9 +1,9 @@
 class OrderItemsController < ApplicationController
 
   def index
-    @order_items = OrderItem.all
+    @order_items = OrderItem.where(status: :pending)
   end
-
+ 
   def new
     @order_item = OrderItem.new
   end
@@ -13,12 +13,12 @@ class OrderItemsController < ApplicationController
     @order_item = OrderItem.new(order_item_params)
     # order item is created when added to cart
     if @order_item.save
-
       flash[:success] = "Item added to cart."
-      redirect_back
+      redirect_back #product show page
       # where do we want to go/redirect_to if an order item is successfully saved?
     else
       flash[:error] = "Error adding item to cart."
+      redirect_back #product show page
       # should other messages be displayed if it isn't successfully saved? i.e., 'quantity not available'
     end
   end
