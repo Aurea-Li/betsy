@@ -10,4 +10,8 @@
     <li>Rating: <%= "#{@product.rating}" %></li>
     <li>Merchant: <%= "#{@product.merchant_id}" %></li>
   </ul>
+
+  <p>
+    <%= link_to "Edit", edit_product_path(@product), class: "btn btn-primary" %>
+  </p>
 <% end %>
