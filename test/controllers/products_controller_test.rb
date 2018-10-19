@@ -60,7 +60,8 @@ describe ProductsController do
       product_hash = {
         product: {
           name: "Test product",
-          price: 3
+          price: 3,
+          merchant_id: Merchant.first.id
          }
       }
 
