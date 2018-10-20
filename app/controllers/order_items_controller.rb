@@ -2,9 +2,6 @@ class OrderItemsController < ApplicationController
 
   def index
     @order_items = OrderItem.where(status: :pending)
-
-    
-
   end
 
   def new
