@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create]
 
   get '/auth/:provider/callback', to: "sessions#create", as: 'auth_callback'
-  post '/sessions/logout', to: 'sessions#logout', as: 'logout'
+  delete '/logout', to: 'sessions#destroy', as: 'logout'
 
 end

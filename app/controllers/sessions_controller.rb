@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
     redirect_to products_path
   end
 
-  def logout
+  def destroy
     session[:user_id] = nil
     flash[:success] = "Successfully logged out"
     redirect_to products_path
