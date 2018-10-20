@@ -1,0 +1,21 @@
+<h2> Cart </h2>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> Quantity </th>
+      <th> Price </th>
+    </tr>
+  </thead>
+
+<% @order_items.each do |item| %>
+
+  <tr>
+    <td> <%= link_to item.product.name, product_path(item.product.id) %> </td>
+    <td> <%= item.quantity %> </td>
+    <td> <%= item.price %> </td>
+  </tr>
+
+<% end %>
+</table>

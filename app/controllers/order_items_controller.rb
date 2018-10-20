@@ -9,6 +9,8 @@ class OrderItemsController < ApplicationController
   end
 
   # order item is created when added to cart
+  #TODO: sessions[:order_id] is invalid order
+  #TODO: avoid duplicate order_items for same product
   def create
 
     puts "PARAMS IS #{params[:order_item]}"
@@ -19,9 +21,10 @@ class OrderItemsController < ApplicationController
       order = Order.create
       session[:order_id] = order.id
     end
+
     @order_item.order_id = session[:order_id]
     # order item is created when added to cart
-    puts "is it valid? #{@order_item.valid?}"
+
 
     if @order_item.save
       flash[:status] = :success
