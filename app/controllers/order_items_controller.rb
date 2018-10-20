@@ -9,7 +9,6 @@ class OrderItemsController < ApplicationController
   end
 
   # order item is created when added to cart
-  #TODO: sessions[:order_id] is invalid order
   #TODO: avoid duplicate order_items for same product
   def create
 
@@ -22,18 +21,37 @@ class OrderItemsController < ApplicationController
       session[:order_id] = order.id
     end
 
-    @order_item.order_id = session[:order_id]
-    # order item is created when added to cart
+    order = Order.find_by(id: session[:order_id])
 
+    if order
 
-    if @order_item.save
-      flash[:status] = :success
-      flash[:result_text] = "Item successfully added to cart. "
+      duplicate_items = OrderItem.find_by(product_id: @order_item.product_id)
+
+      if duplicate_items
+        quantity = duplicate_items.quantity + @order_item.quantity
+        duplicate_items.update(quantity: quantity)
+
+        flash[:status] = :success
+        flash[:result_text] = "Quantity of #{@order_item.product.name} is updated."
+      else
+
+        @order_item.order_id = session[:order_id]
+        # order item is created when added to cart
+        if @order_item.save
+          flash[:status] = :success
+          flash[:result_text] = "Item successfully added to cart. "
+
+        else
+          flash[:status] = :failure
+          flash[:result_text] = "Error adding item to cart"
+          # should other messages be displayed if it isn't successfully saved? i.e., 'quantity not available'
+        end
+      end
+
 
     else
       flash[:status] = :failure
-      flash[:result_text] = "Error adding item to cart"
-      # should other messages be displayed if it isn't successfully saved? i.e., 'quantity not available'
+      flash[:result_text] = "Order for cart is invalid. Please restart browser and try again."
     end
 
     redirect_back fallback_location: products_path
