@@ -11,8 +11,6 @@ class OrderItemsController < ApplicationController
 
   def create
 
-    puts "PARAMS IS #{params[:order_item]}"
-
     @order_item = OrderItem.new(order_item_params)
 
     unless session[:order_id]
@@ -24,7 +22,7 @@ class OrderItemsController < ApplicationController
 
     if order
 
-      duplicate_items = OrderItem.find_by(product_id: @order_item.product_id)
+      duplicate_items = OrderItem.find_by(product_id: @order_item.product_id, status: 'pending')
 
       if duplicate_items
         quantity = duplicate_items.quantity + @order_item.quantity
@@ -79,13 +77,15 @@ class OrderItemsController < ApplicationController
     @order_item = OrderItem.find_by(id: params[:id])
 
     @order_item.destroy
-    # where to redirect to?
+    flash[:status] = :success
+    flash[:result_text] = "#{@order_item.product.name} successfully removed from cart."
+    redirect_to order_items_path
   end
 
   private
   def order_item_params
     params.require(:order_item).permit(:quantity, :status, :product_id, :order_id)
-
   end
+
 
 end
