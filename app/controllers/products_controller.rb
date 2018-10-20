@@ -6,7 +6,8 @@ class ProductsController < ApplicationController
     @products = Product.all
   end
 
-  def show;
+  def show
+    @order_item = OrderItem.new
   end
 
   def new

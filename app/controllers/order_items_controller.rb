@@ -3,24 +3,37 @@ class OrderItemsController < ApplicationController
   def index
     @order_items = OrderItem.where(status: :pending)
   end
- 
+
   def new
     @order_item = OrderItem.new
   end
 
   # order item is created when added to cart
   def create
+
+    puts "PARAMS IS #{params[:order_item]}"
+
     @order_item = OrderItem.new(order_item_params)
+
+    unless session[:order_id]
+      order = Order.create
+      session[:order_id] = order.id
+    end
+    @order_item.order_id = session[:order_id]
     # order item is created when added to cart
+    puts "is it valid? #{@order_item.valid?}"
+
     if @order_item.save
-      flash[:success] = "Item added to cart."
-      redirect_back #product show page
-      # where do we want to go/redirect_to if an order item is successfully saved?
+      flash[:status] = :success
+      flash[:result_text] = "Item successfully added to cart. "
+
     else
-      flash[:error] = "Error adding item to cart."
-      redirect_back #product show page
+      flash[:status] = :failure
+      flash[:result_text] = "Error adding item to cart"
       # should other messages be displayed if it isn't successfully saved? i.e., 'quantity not available'
     end
+
+    redirect_back fallback_location: products_path
   end
 
   def show
@@ -51,7 +64,8 @@ class OrderItemsController < ApplicationController
 
   private
   def order_item_params
-    params.require(:order_item).permit(:quantity, :status)
+    params.require(:order_item).permit(:quantity, :status, :product_id, :order_id)
+
   end
 
 end

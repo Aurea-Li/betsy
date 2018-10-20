@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :merchants
   resources :products
-  resources :order_items
+  resources :order_items, except: [:new]
   resources :orders
 
   resources :sessions, only: [:new, :create]
