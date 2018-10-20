@@ -2,14 +2,16 @@ class OrderItemsController < ApplicationController
 
   def index
     @order_items = OrderItem.where(status: :pending)
+
+    
+
   end
 
   def new
     @order_item = OrderItem.new
   end
 
-  # order item is created when added to cart
-  #TODO: avoid duplicate order_items for same product
+
   def create
 
     puts "PARAMS IS #{params[:order_item]}"
