@@ -30,8 +30,14 @@ header {
   color: #191970;
   border-bottom: solid .75px #adc1eb;
   margin-bottom: 35px;
+  margin-top : 15px;
   padding: 10px;
 }
+
+nav {
+  // border-top: solid .75px #adc1eb;
+}
+
 
 .user-nav-list, .shopping-nav-list {
   display: flex;
@@ -41,6 +47,11 @@ header {
 header a:hover, header a:link, header a:visited {
   color: #191970;
   text-decoration: none;
+  margin: 1em;
+}
+
+.header-subheading {
+  margin-bottom: 2em;
 }
 
 h1, h2, h3 {

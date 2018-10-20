@@ -10,28 +10,27 @@
   </head>
 
   <body>
-    <header class = "header-header">
-      <h2><strong>PETSY</strong></h2>
-      <h3> Purring, Leaping, Wagging, and Swimming into Hearts Around the Globe</h3>
+    <header>
+      <h2 class="header-heading">
+        <strong>PETSY</strong>
+      </h2>
+      <h3 class="header-subheading"> Purring, Leaping, Wagging, and Swimming into Hearts Around the Globe</h3>
 
-      <nav class = "nav-bar navbar-default user-nav">
+      <nav class = "navbar navbar-default user-nav">
         <ul class = "user-nav-list nav navbar-nav navbar-right">
           <li>
-            <%= link_to "Cart", order_items_path %>
+            <%= link_to " Cart ", order_items_path %>
           </li>
           <% if session[:user_id] %>
           <li>
-            <%= link_to "Log out", '/logout', method: :delete %>
+            <%= link_to " Log out ", '/logout', method: :delete %>
           </li>
           <% else %>
             <li>
-              <%= link_to "Log in", '/auth/github'%>
+              <%= link_to " Log in ", '/auth/github'%>
             </li>
           <% end %>
         </ul>
-      </nav>
-
-      <nav class = "shopping-nav">
         <ul class = "shopping-nav-list nav navbar-nav">
           <li>
           <%= link_to "Products", products_path %>
