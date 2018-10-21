@@ -8,6 +8,7 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Rammetto+One" rel="stylesheet">
+
   </head>
 
   <body>
@@ -22,27 +23,31 @@
       </section>
 
       <nav class = "navbar navbar-default user-nav">
+        <ul class = "shopping-nav-list nav navbar-nav">
+          <li>
+          <%= link_to "PRODUCTS", products_path %>
+          </li>
+          <li>
+            <%= link_to "MERCHANTS", merchants_path %>
+          </li>
+        </ul>
+
         <ul class = "user-nav-list nav navbar-nav navbar-right">
           <li>
-            <%= link_to " Cart ", order_items_path %>
+            <%= link_to " CART ", order_items_path %>
           </li>
           <% if session[:user_id] %>
           <li>
-            <%= link_to " Log out ", '/logout', method: :delete %>
+            <i class="glyphicon glyphicon-user"></i>
+            <%= link_to " LOG OUT ", '/logout', method: :delete%>
           </li>
           <% else %>
             <li>
-              <%= link_to " Log in ", '/auth/github'%>
+              <%= link_to " LOG IN ", '/auth/github'%>
             </li>
           <% end %>
         </ul>
-        <ul class = "shopping-nav-list nav navbar-nav">
-          <li>
-          <%= link_to "Products", products_path %>
-          </li>
-          <li>
-            <%= link_to "Merchants", merchants_path %>
-          </li>
+
       </nav>
     </header>
 
