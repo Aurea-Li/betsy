@@ -28,3 +28,4 @@
 
 #Ignore env file for Github Auth
 .env
+coverage
