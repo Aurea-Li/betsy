@@ -3,7 +3,7 @@
 
   <section class = "product-gallery">
     <% @products.each do |product| %>
-    <div class="card" style="width: 15rem;">
+    <div class="card">
       <img class="card-img-top" src="<%=product.photo%>" alt="Image of <%=product.name%>">
       <div class="card-body">
         <h5 class="card-title"><%= product.name %></h5>
@@ -14,6 +14,7 @@
     <% end %>
   </section>
 
+<%= will_paginate @products %>
 </section>
 <!-- <table class="table">
   <thead>
