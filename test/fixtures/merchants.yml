@@ -24,9 +24,3 @@ cuteclothes:
  email: cuteclothes@shop.com
  uid: 1123
  provider: github
-
-one:
- username: name1
-#
-two:
- username: name2

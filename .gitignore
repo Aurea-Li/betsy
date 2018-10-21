@@ -31,3 +31,5 @@
 
 #Ignore Mac finder related files
 .DS_Store
+
+coverage
