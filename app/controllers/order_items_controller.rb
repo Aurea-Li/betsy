@@ -66,12 +66,15 @@ class OrderItemsController < ApplicationController
   def update
     @order_item = OrderItem.find_by(id: params[:id])
     if @order_item.update(order_item_params)
-      flash[:success] = "Successful update."
+      flash[:status] = :success
+      flash[:result_text] = "Update was successful."
       # where to redirect to?
     else
-      render :edit
-      # what do we want to render here?
+      flash[:status] = :failure
+      flash[:result_text] = "Update was not successful. Invalid input."
     end
+
+    redirect_back fallback_location: order_items_path
   end
 
   def destroy

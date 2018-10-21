@@ -7,10 +7,6 @@ class OrdersController < ApplicationController
 
   end
 
-  def new
-    @order = Order.new(status: 'paid')
-  end
-
   def create
     @order = Order.new(order_params)
 
