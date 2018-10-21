@@ -3,10 +3,11 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all
+    @products = Product.where(active: true)
   end
 
-  def show;
+  def show
+    @order_item = OrderItem.new
   end
 
   def new

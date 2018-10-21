@@ -4,14 +4,26 @@
   <ul>
     <li>Name: <%= "#{@product.name}" %></li>
     <li>Price: <%= "#{@product.price}" %></li>
-    <li>Photo: <%= "#{@product.photo}" %></li>
+    <li><%= image_tag @product.photo, alt: @product.name %> </li>
     <li>In Stock: <%= "#{@product.stock}" %></li>
     <li>Category: <%= "#{@product.category}" %></li>
     <li>Rating: <%= "#{@product.rating}" %></li>
-    <li>Merchant: <%= "#{@product.merchant_id}" %></li>
+    <li>Merchant: <%= "#{@product.merchant.username}" %></li>
   </ul>
 
-  <p>
+  <section>
     <%= link_to "Edit", edit_product_path(@product), class: "btn btn-primary" %>
-  </p>
+
+    <%= form_with model: @order_item, class: 'add-cart-form' do |f| %>
+
+      <%= f.label :quantity %>
+      <%= f.text_field :quantity %>
+
+      <%= f.hidden_field :status, value: 'pending' %>
+
+      <%= f.hidden_field :product_id, value: @product.id %>
+
+      <%= f.submit "Add to cart", class: 'pending' "add-cart-form-submit-button btn btn-primary" %>
+    <% end %>
+  </section>
 <% end %>
