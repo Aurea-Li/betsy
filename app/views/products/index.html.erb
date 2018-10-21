@@ -7,7 +7,6 @@
       <th>Price</th>
       <th>Photo</th>
       <th>Stock</th>
-      <th>Active</th>
       <th>Category</th>
       <th>Rating</th>
       <th>Description</th>
@@ -17,11 +16,10 @@
   <tbody>
     <% @products.each do |product| %>
     <tr>
-      <td><%= product.name %></td>
+      <td><%= link_to product.name, product_path(product.id) %></td>
       <td><%= product.price %></td>
-      <td><%= product.photo %></td>
+      <td> <%= image_tag product.photo, alt: product.name %> </td>
       <td><%= product.stock %></td>
-      <td><%= product.active %></td>
       <td><%= product.category %></td>
       <td><%= product.rating %></td>
       <td><%= product.merchant_id %></td>
