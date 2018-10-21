@@ -7,14 +7,19 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Rammetto+One" rel="stylesheet">
   </head>
 
   <body>
     <header>
-      <h2 class="header-heading">
-        <strong>PETSY</strong>
-      </h2>
-      <h3 class="header-subheading"> Purring, Leaping, Wagging, and Swimming into Hearts Around the Globe</h3>
+      <section class = "header-img">
+      <%= image_tag("petstogether.jpeg", alt: "group of assorted pets")%>
+      </section>
+
+      <section class = "header-text">
+        <h1 class="header-heading">PETSY</h1>
+        <h3 class="header-subheading"> Purring, Leaping, Wagging, and Swimming into Hearts Around the Globe</h3>
+      </section>
 
       <nav class = "navbar navbar-default user-nav">
         <ul class = "user-nav-list nav navbar-nav navbar-right">
