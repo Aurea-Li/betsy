@@ -13,12 +13,13 @@ class OrderItemsController < ApplicationController
 
     @order_item = OrderItem.new(order_item_params)
 
-    unless session[:order_id]
+    if session[:order_id]
+      order = Order.find_by(id: session[:order_id])
+    else
       order = Order.create
       session[:order_id] = order.id
     end
 
-    order = Order.find_by(id: session[:order_id])
 
     if order
 
