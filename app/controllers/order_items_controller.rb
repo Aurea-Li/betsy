@@ -1,5 +1,7 @@
 class OrderItemsController < ApplicationController
 
+  before_action :find_order_item, only: [:show, :edit, :update, :destroy]
+
   def index
     @order_items = OrderItem.where(status: :pending)
   end
@@ -56,15 +58,12 @@ class OrderItemsController < ApplicationController
   end
 
   def show
-    @order_item = OrderItem.find_by(id: params[:id])
   end
 
   def edit
-    @order_item = OrderItem.find_by(id: params[:id])
   end
 
   def update
-    @order_item = OrderItem.find_by(id: params[:id])
     if @order_item.update(order_item_params)
       flash[:status] = :success
       flash[:result_text] = "Update was successful."
@@ -78,8 +77,6 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
-    @order_item = OrderItem.find_by(id: params[:id])
-
     @order_item.destroy
     flash[:status] = :success
     flash[:result_text] = "#{@order_item.product.name} successfully removed from cart."
@@ -91,5 +88,7 @@ class OrderItemsController < ApplicationController
     params.require(:order_item).permit(:quantity, :status, :product_id, :order_id)
   end
 
-
+  def find_order_item
+    @order_item = OrderItem.find_by(id: params[:id])
+  end
 end
