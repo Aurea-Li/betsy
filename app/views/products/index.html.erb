@@ -1,13 +1,28 @@
-<h1>All Products</h1>
+<section class = "all-products">
+  <h2>All Products</h2>
 
-<table class="table">
+  <section class = "product-gallery">
+    <% @products.each do |product| %>
+    <div class="card">
+      <img class="card-img-top" src="<%=product.photo%>" alt="Image of <%=product.name%>">
+      <div class="card-body">
+        <h5 class="card-title"><%= product.name %></h5>
+        <p class="card-text">  product.description after val adds migration</p>
+        <%= link_to "Learn more", product_path(product.id), class:"btn btn-primary"%>
+      </div>
+    </div>
+    <% end %>
+  </section>
+
+<%= will_paginate @products %>
+</section>
+<!-- <table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Price</th>
       <th>Photo</th>
       <th>Stock</th>
-      <th>Active</th>
       <th>Category</th>
       <th>Rating</th>
       <th>Description</th>
@@ -17,11 +32,10 @@
   <tbody>
     <% @products.each do |product| %>
     <tr>
-      <td><%= product.name %></td>
+      <td><%= link_to product.name, product_path(product.id) %></td>
       <td><%= product.price %></td>
-      <td><%= product.photo %></td>
+      <td> <%= image_tag product.photo, alt: product.name %> </td>
       <td><%= product.stock %></td>
-      <td><%= product.active %></td>
       <td><%= product.category %></td>
       <td><%= product.rating %></td>
       <td><%= product.merchant_id %></td>
@@ -29,4 +43,4 @@
     </tr>
     <% end %>
   </tbody>
-</table>
+</table> -->
