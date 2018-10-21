@@ -3,10 +3,12 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all.paginate(page: params[:page], per_page: 16)
+
+    @products = Product.where(active: true).paginate(page: params[:page], per_page: 16)
   end
 
-  def show;
+  def show
+    @order_item = OrderItem.new
   end
 
   def new
