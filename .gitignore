@@ -28,3 +28,6 @@
 
 #Ignore env file for Github Auth
 .env
+
+#Ignore Mac finder related files
+.DS_Store
