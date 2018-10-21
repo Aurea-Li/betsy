@@ -4,31 +4,29 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-<<<<<<< HEAD
 dogdays:
-  username: dogsdays
-  email: dogsdays@over.com
-  uid: 12345
-  provider: github
+ username: dogsdays
+ email: dogsdays@over.com
+ uid: 12345
+ provider: github
 palomino:
-  username: palomino
-  email: horsesgalore@some.com
-  uid: 31234
-  provider: github
+ username: palomino
+ email: horsesgalore@some.com
+ uid: 31234
+ provider: github
 larry:
-  username: lizardlarry
-  email: larry54@over.com
-  uid: 7124
-  provider: github
+ username: lizardlarry
+ email: larry54@over.com
+ uid: 7124
+ provider: github
 cuteclothes:
-  username: cuteclothes
-  email: cuteclothes@shop.com
-  uid: 1123
-  provider: github
-=======
+ username: cuteclothes
+ email: cuteclothes@shop.com
+ uid: 1123
+ provider: github
+
 one:
  username: name1
 #
 two:
  username: name2
->>>>>>> 78805abdd954af35d92b56977da6a5d4047a2610
