@@ -1,9 +1,10 @@
 <section class = "all-merchants">
-  <h3>All Merchants</h3>
+  <h2>All Merchants</h2>
 
   <% @merchants.each do |merchant| %>
     <ul class = "merchants-list">
-      <%= merchant.username %>
+      <li>
+        <%=link_to merchant.username, merchant_path(merchant.id) %></li>
     </ul>
   <% end %>
 </section>

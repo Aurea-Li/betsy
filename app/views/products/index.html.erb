@@ -1,6 +1,22 @@
-<h1>All Products</h1>
+<section class = "all-products">
+  <h2>All Products</h2>
 
-<table class="table">
+  <section class = "product-gallery">
+    <% @products.each do |product| %>
+    <div class="card">
+      <img class="card-img-top" src="<%=product.photo%>" alt="Image of <%=product.name%>">
+      <div class="card-body">
+        <h5 class="card-title"><%= product.name %></h5>
+        <p class="card-text">  product.description after val adds migration</p>
+        <%= link_to "Learn more", product_path(product.id), class:"btn btn-primary"%>
+      </div>
+    </div>
+    <% end %>
+  </section>
+
+<%= will_paginate @products %>
+</section>
+<!-- <table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -27,4 +43,4 @@
     </tr>
     <% end %>
   </tbody>
-</table>
+</table> -->
