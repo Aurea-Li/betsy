@@ -51,7 +51,9 @@ class OrdersController < ApplicationController
 
   def destroy
     @order.destroy
-    redirect_to orders_path
+    flash[:status] = :success
+    flash[:result_text] = "Your order has been cancelled."
+    redirect_to root_path
   end
 
   private
