@@ -43,7 +43,6 @@ class OrdersController < ApplicationController
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Order information is invalid. Please try again."
-      binding.pry
       render :edit, status: :bad_request
     end
   end
