@@ -3,7 +3,7 @@ class OrderItemsController < ApplicationController
   before_action :find_order_item, only: [:show, :edit, :update, :destroy]
 
   def index
-    @order_items = OrderItem.where(status: :pending)
+    @order_items = OrderItem.where(status: :pending, order_id: session[:order_id])
   end
 
   def new
