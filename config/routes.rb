@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   root 'products#root'
 
   resources :merchants
-  resources :products do
+  resources :products, except: [:show] do
     resources :reviews, only: [:index, :new]
   end
+
   resources :order_items, except: [:new]
   resources :orders
 

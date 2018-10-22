@@ -4,6 +4,7 @@ class ReviewsController < ApplicationController
 
   def index
     @reviews = @product.reviews
+    @order_item = OrderItem.new
   end
 
   def new
