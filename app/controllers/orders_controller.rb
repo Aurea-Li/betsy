@@ -8,13 +8,11 @@ class OrdersController < ApplicationController
 
   end
 
-<<<<<<< HEAD
-=======
+
   def new
     @order = Order.new
   end
 
->>>>>>> checkout-form
   def create
     @order = Order.new(order_params)
 
@@ -35,13 +33,15 @@ class OrdersController < ApplicationController
   def update
     @order.update_attributes(order_params)
 
-    if @order.save
+    if @order
       @order.status = 'paid'
+      @order.save
       # binding.pry
       @order.order_items.each do |item|
         item.status = 'paid'
         item.save
       end
+      session[:order_id] = nil
       # binding.pry
       redirect_to order_path(@order.id)
     else
