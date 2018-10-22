@@ -5,10 +5,10 @@ class OrderItemsController < ApplicationController
   def index
     @order_items = OrderItem.where(status: :pending, order_id: session[:order_id])
   end
-
-  def new
-    @order_item = OrderItem.new
-  end
+  #
+  # def new
+  #   @order_item = OrderItem.new
+  # end
 
 
   def create
@@ -51,7 +51,8 @@ class OrderItemsController < ApplicationController
 
     else
       flash[:status] = :failure
-      flash[:result_text] = "Order for cart is invalid. Please restart browser and try again."
+      flash[:result_text] = "Order for cart is invalid. Cart has been wiped and reset. Please try again."
+      session[:order_id] = nil
     end
 
     redirect_back fallback_location: products_path
