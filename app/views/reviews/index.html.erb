@@ -1,13 +1,13 @@
 <h2>Product Detail</h2>
 
 <ul>
-  <li>Name: <%= "#{@product.name}" %></li>
-  <li>Price: <%= "#{@product.price}" %></li>
+  <li>Name: <%= @product.name %></li>
+  <li>Price: <%= @product.price %></li>
   <li><%= image_tag @product.photo, alt: @product.name %> </li>
-  <li>In Stock: <%= "#{@product.stock}" %></li>
-  <li>Category: <%= "#{@product.category}" %></li>
-  <li>Rating: <%= "#{@product.rating}" %></li>
-  <li>Merchant: <%= "#{@product.merchant.username}" %></li>
+  <li>In Stock: <%= @product.stock %></li>
+  <li>Category: <%= @product.category %></li>
+  <li>Rating: <%= @product.rating %></li>
+  <li>Merchant: <%= @product.merchant.username %></li>
 </ul>
 
 <section>
@@ -36,9 +36,9 @@
     <% @reviews.each do |review| %>
       <li>
         <ul>
-          <li> <%= review.name %> </li>
-          <li> <%= review.rating %> </li>
-          <li> <%= review.description %> </li>
+          <li> <strong> Name: </strong> <%= review.name %> </li>
+          <li> <strong> Rating: </strong> <%= review.rating %> </li>
+          <li> <strong> Description: </strong> <%=  review.description %> </li>
         </ul>
       </li>
     <% end %>

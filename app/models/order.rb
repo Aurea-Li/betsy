@@ -12,7 +12,6 @@ class Order < ApplicationRecord
   validates :cc_cvv, presence: true, if: :is_not_pending
   validates :cc_expiration, presence: true, if: :is_not_pending
 
-
   def is_not_pending
     return self.status != 'pending'
   end
