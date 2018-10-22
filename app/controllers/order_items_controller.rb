@@ -36,8 +36,18 @@ class OrderItemsController < ApplicationController
         @order_item.order_id = session[:order_id]
         # order item is created when added to cart
         if @order_item.save
-          flash[:status] = :success
-          flash[:result_text] = "Item successfully added to cart. "
+
+          product = @order_item.product
+          remaining_stock = product.stock - @order_item.quantity
+
+          if product.update(stock: remaining_stock)
+
+            flash[:status] = :success
+            flash[:result_text] = "Item successfully added to cart. "
+          else
+            flash[:status] = :failure
+            flash[:result_text] = "Quantity requested exceeds stock. Please try again."
+          end
 
         else
           flash[:status] = :failure

@@ -4,7 +4,13 @@
   <li>Name: <%= @product.name %></li>
   <li>Price: <%= @product.price %></li>
   <li><%= image_tag @product.photo, alt: @product.name %> </li>
-  <li>In Stock: <%= @product.stock %></li>
+  <li>
+    <% if @product.stock == 0 %>
+      <strong> OUT OF STOCK </strong>
+    <% else %>
+      In Stock: <%= @product.stock %>
+    <% end %>
+  </li>
   <li>Category: <%= @product.category %></li>
   <li>Rating: <%= @product.rating %></li>
   <li>Merchant: <%= @product.merchant.username %></li>
@@ -15,16 +21,23 @@
 </section>
 
 <section>
+
   <%= form_with model: @order_item, class: 'add-cart-form' do |f| %>
 
-  <%= f.label :quantity %>
-  <%= f.text_field :quantity %>
+    <%= f.label :quantity %>
+    <%= f.text_field :quantity %>
 
-  <%= f.hidden_field :status, value: 'pending' %>
+    <%= f.hidden_field :status, value: 'pending' %>
 
-  <%= f.hidden_field :product_id, value: @product.id %>
+    <%= f.hidden_field :product_id, value: @product.id %>
 
-  <%= f.submit "Add to cart", class: 'pending' "add-cart-form-submit-button btn btn-primary" %>
+    <% if @product.stock == 0 %>
+      <%= f.submit "Add to cart", class: 'pending' "add-cart-form-submit-button btn btn-primary", disabled: true %>
+
+    <% else %>
+      <%= f.submit "Add to cart", class: 'pending' "add-cart-form-submit-button btn btn-primary" %>
+    <% end %>
+
   <% end %>
 </section>
 
@@ -45,5 +58,7 @@
   </ul>
   <% end %>
 
-  <%= link_to "Add Review", new_product_review_path, class: "btn btn-primary" %>
+
+<%= link_to "Add Review", new_product_review_path, class: "btn btn-primary" %>
+
 </section>
