@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: "sessions#create", as: 'auth_callback'
   delete '/logout', to: 'sessions#destroy', as: 'logout'
 
+  get '/merchants/:merchant_id/dashboard', to: 'merchants#dashboard', as: 'dashboard'
+
 end
