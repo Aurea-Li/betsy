@@ -5,10 +5,10 @@ class OrderItemsController < ApplicationController
   def index
     @order_items = OrderItem.where(status: :pending, order_id: session[:order_id])
   end
-  #
-  # def new
-  #   @order_item = OrderItem.new
-  # end
+  
+  def new
+    @order_item = OrderItem.new
+  end
 
 
   def create
