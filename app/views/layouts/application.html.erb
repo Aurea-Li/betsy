@@ -5,7 +5,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Rammetto+One" rel="stylesheet">
 
@@ -25,10 +25,14 @@
       <nav class = "navbar navbar-default user-nav">
         <ul class = "shopping-nav-list nav navbar-nav">
           <li>
+            <%= link_to " HOME ", root_path %>
+          </li>
+          <li>
           <%= link_to "PRODUCTS", products_path %>
           </li>
           <li>
-            <%= link_to "MERCHANTS", merchants_path %></li>
+            <%= link_to "MERCHANTS", merchants_path %>
+          </li>
         </ul>
 
         <ul class = "user-nav-list nav navbar-nav navbar-right">

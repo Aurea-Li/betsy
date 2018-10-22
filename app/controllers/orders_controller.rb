@@ -1,3 +1,4 @@
+require 'pry'
 class OrdersController < ApplicationController
 
   before_action :find_order, except: [:index, :new, :create]
@@ -7,10 +8,13 @@ class OrdersController < ApplicationController
 
   end
 
+<<<<<<< HEAD
+=======
   def new
-    @order = Order.new(status: 'paid')
+    @order = Order.new
   end
 
+>>>>>>> checkout-form
   def create
     @order = Order.new(order_params)
 
@@ -32,6 +36,13 @@ class OrdersController < ApplicationController
     @order.update_attributes(order_params)
 
     if @order.save
+      @order.status = 'paid'
+      # binding.pry
+      @order.order_items.each do |item|
+        item.status = 'paid'
+        item.save
+      end
+      # binding.pry
       redirect_to order_path(@order.id)
     else
       render :edit, status: :bad_request
@@ -47,6 +58,7 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(
+      :status,
       :name,
       :email,
       :address,
