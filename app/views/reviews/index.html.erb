@@ -1,6 +1,5 @@
 <h2>Product Detail</h2>
 
-
 <ul>
   <li>Name: <%= "#{@product.name}" %></li>
   <li>Price: <%= "#{@product.price}" %></li>
@@ -32,5 +31,19 @@
 <section>
   <% if @reviews.empty? %>
     <h3> No Reviews Available. </h3>
+  <% else %>
+  <ul>
+    <% @reviews.each do |review| %>
+      <li>
+        <ul>
+          <li> <%= review.name %> </li>
+          <li> <%= review.rating %> </li>
+          <li> <%= review.description %> </li>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
   <% end %>
+
+  <%= link_to "Add Review", new_product_review_path, class: "btn btn-primary" %>
 </section>
