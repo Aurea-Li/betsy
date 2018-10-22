@@ -4,9 +4,43 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one:
+product_one:
  name: test product 1
- 
-#
-two:
+ price: 1.99
+ photo: http://placekitten.com/200/300
+ stock: 10
+ active: true
+ category: American Bobtail
+ rating: 5
+ merchant: dogdays
+ descripion: blah blah blah cats
+product_two:
  name: test product 2
+ price: 10.99
+ photo: http://placekitten.com/200/300
+ stock: 15
+ active: true
+ category: American Bobtail
+ rating: 4
+ merchant: palomino
+ descripion: blah blah blah cats
+product_three:
+ name: test product 3
+ price: 18.99
+ photo: http://placekitten.com/200/300
+ stock: 5
+ active: true
+ category: American Bobtail
+ rating: 3
+ merchant: larry
+ descripion: blah blah blah cats
+product_four:
+ name: test product 4
+ price: 1.99
+ photo: http://placekitten.com/200/300
+ stock: 8
+ active: true
+ category: American Bobtail
+ rating: 5
+ merchant: cuteclothes
+ descripion: blah blah blah cats
