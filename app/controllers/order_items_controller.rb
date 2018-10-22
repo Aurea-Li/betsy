@@ -5,7 +5,7 @@ class OrderItemsController < ApplicationController
   def index
     @order_items = OrderItem.where(status: :pending, order_id: session[:order_id])
   end
-  
+
   def new
     @order_item = OrderItem.new
   end
@@ -58,8 +58,6 @@ class OrderItemsController < ApplicationController
     redirect_back fallback_location: products_path
   end
 
-  def show
-  end
 
   def edit
   end
