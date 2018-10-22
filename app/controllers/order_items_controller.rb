@@ -26,12 +26,13 @@ class OrderItemsController < ApplicationController
       duplicate_item = OrderItem.find_by(product_id: @order_item.product_id, status: 'pending')
 
       if duplicate_item
-        quantity = duplicate_item.quantity + @order_item.quantity
-        duplicate_item.update(quantity: quantity)
 
         remaining_stock = duplicate_item.product.stock - duplicate_item.quantity
 
         if duplicate_item.product.update(stock: remaining_stock)
+
+          quantity = duplicate_item.quantity + @order_item.quantity
+          duplicate_item.update(quantity: quantity)
 
           flash[:status] = :success
           flash[:result_text] = "Quantity of #{@order_item.product.name} is updated."
