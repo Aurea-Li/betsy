@@ -24,7 +24,7 @@ class OrderItemsController < ApplicationController
 
     if order
 
-      duplicate_items = OrderItem.find_by(product_id: @order_item.product_id, status: 'pending')
+      duplicate_items = OrderItem.find_by(product_id: @order_item.product_id, status: :pending)
 
       if duplicate_items
         quantity = duplicate_items.quantity + @order_item.quantity
