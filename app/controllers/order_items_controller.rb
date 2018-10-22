@@ -3,7 +3,7 @@ class OrderItemsController < ApplicationController
   before_action :find_order_item, only: [:show, :edit, :update, :destroy]
 
   def index
-    @order_items = OrderItem.where(status: :pending, order_id: session[:order_id])
+    @order_items = OrderItem.where(status: 'pending', order_id: session[:order_id])
   end
 
   def new
@@ -14,9 +14,8 @@ class OrderItemsController < ApplicationController
   def create
 
     @order_item = OrderItem.new(order_item_params)
-
     unless session[:order_id]
-      order = Order.create
+      order = Order.create(status: 'pending')
       session[:order_id] = order.id
     end
 
@@ -24,7 +23,7 @@ class OrderItemsController < ApplicationController
 
     if order
 
-      duplicate_items = OrderItem.find_by(product_id: @order_item.product_id, status: :pending)
+      duplicate_items = OrderItem.find_by(product_id: @order_item.product_id, status: 'pending')
 
       if duplicate_items
         quantity = duplicate_items.quantity + @order_item.quantity
@@ -49,7 +48,7 @@ class OrderItemsController < ApplicationController
 
     else
       flash[:status] = :failure
-      flash[:result_text] = "Order for cart is invalid. Please restart browser and try again."
+      flash[:result_text] = "Order for cart is invalid. Please restart browser and try again. session order id: #{session[:order_id]}"
       session[:order_id] = nil
     end
 

@@ -4,7 +4,7 @@ class ReviewsController < ApplicationController
 
   def index
     @reviews = @product.reviews
-    @order_item = OrderItem.new(quantity: 1, status: :pending)
+    @order_item = OrderItem.new(quantity: 1, status: 'pending')
   end
 
   def new
