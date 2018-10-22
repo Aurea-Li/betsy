@@ -80,14 +80,30 @@ class OrderItemsController < ApplicationController
   end
 
   def update
-    if @order_item.update(order_item_params)
-      flash[:status] = :success
-      flash[:result_text] = "Update was successful."
-      # where to redirect to?
+    old_quantity = @order_item.quantity
+    new_quantity = order_item_params[:quantity].to_i
+
+
+    diff_quantity = new_quantity - old_quantity
+    curr_stock = @order_item.product.stock
+    new_stock = curr_stock - diff_quantity
+
+    if @order_item.product.update(stock: new_stock)
+
+      if @order_item.update(order_item_params)
+
+        flash[:status] = :success
+        flash[:result_text] = "Update was successful."
+
+      else
+        flash[:status] = :failure
+        flash[:result_text] = "Update was not successful. Invalid input."
+      end
     else
       flash[:status] = :failure
-      flash[:result_text] = "Update was not successful. Invalid input."
+      flash[:result_text] = "Quantity requested exceeds stock. Please try again."
     end
+    
     redirect_back fallback_location: order_items_path
   end
 
