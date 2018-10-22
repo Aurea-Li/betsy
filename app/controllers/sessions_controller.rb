@@ -5,14 +5,17 @@ class SessionsController < ApplicationController
     merchant = Merchant.find_by(uid: auth_hash[:uid], provider: auth_hash[:provider])
 
     if merchant
-      flash[:success] = "Welcome #{merchant.username}"
+      flash[:status] = :success
+      flash[:result_text] = "Welcome #{merchant.username}"
     else
       merchant = Merchant.create_from_github(auth_hash)
 
       if merchant.save
-        flash[:success] = "Logged in as merchant #{merchant.username}"
+        flash[:status] = :success
+        flash[:result_text] = "Logged in as merchant #{merchant.username}"
       else
-        flash[:error] = "Could not create new account: #{merchant.errors.messages}"
+        flash[:status] = :failure
+        flash[:result_text] = "Could not create new account: #{merchant.errors.messages}"
         redirect_to products_path
         return
       end
@@ -24,7 +27,8 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    flash[:success] = "Successfully logged out"
+    flash[:status] = :success
+    flash[:result_text] = "Successfully logged out"
     redirect_to products_path
   end
 end

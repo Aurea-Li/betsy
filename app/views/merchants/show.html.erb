@@ -17,12 +17,12 @@
         <tbody>
         <% @merchant.products.each do |product| %>
           <tr>
-            <td><%= link_to product.name, product_path(product.id)%></td>
-            <td><%= product.description%></td>
-            <td><%= product.category%></td>
-            <td>$ <%= product.price%></td>
-            <td><%= product.stock%></td>
-            <td><%= product.rating%></td>
+            <td><%= link_to product.name, product_reviews_path(product.id) %></td>
+            <td><%= product.description %></td>
+            <td><%= product.category %></td>
+            <td><%= product.price %></td>
+            <td><%= product.stock %></td>
+            <td><%= product.rating %></td>
           </tr>
           <% end %>
         </tbody>
