@@ -2,6 +2,7 @@ require "test_helper"
 require 'pry'
 describe MerchantsController do
   # let (:dogdays) {merchants(:dogdays)}
+  let(:bad_merchant_id) { Merchant.first.destroy.id }
   describe "index" do
     it "should get index" do
       get merchants_path
@@ -18,9 +19,6 @@ describe MerchantsController do
   # end
 
   describe "create" do
-    # before do
-    #   dogdays
-    # end
     it "can create a merchant with valid data" do
       merchant_data = {
         merchant: {
@@ -49,7 +47,7 @@ describe MerchantsController do
       }
 
       bad_merchant = Merchant.new(bad_merchant_data[:merchant])
-      
+
       bad_merchant.wont_be :valid?, "Merchant data was valid. Please come fix this test."
 
       expect {
@@ -63,9 +61,21 @@ describe MerchantsController do
 
   describe "show" do
     it "should respond with success for showing an existing merchant" do
+      existing_merchant = merchants(:dogdays)
+      get merchant_path(existing_merchant.id)
+      must_respond_with :success
     end
 
     it "should respond with not found for showing a non-existant merchant" do
+      get merchant_path(bad_merchant_id)
+      must_respond_with :not_found
+    end
+  end
+
+  describe "index" do
+    it "should get index" do
+      get merchants_path
+      must_respond_with :success
     end
   end
 
