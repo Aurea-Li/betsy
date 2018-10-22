@@ -1,3 +1,4 @@
+require 'pry'
 class OrdersController < ApplicationController
 
   before_action :find_order, except: [:index, :new, :create]
@@ -7,8 +8,9 @@ class OrdersController < ApplicationController
 
   end
 
+
   def new
-    @order = Order.new(status: 'paid')
+    @order = Order.new
   end
 
   def create
@@ -31,7 +33,16 @@ class OrdersController < ApplicationController
   def update
     @order.update_attributes(order_params)
 
-    if @order.save
+    if @order
+      @order.status = 'paid'
+      @order.save
+      # binding.pry
+      @order.order_items.each do |item|
+        item.status = 'paid'
+        item.save
+      end
+      session[:order_id] = nil
+      # binding.pry
       redirect_to order_path(@order.id)
     else
       render :edit, status: :bad_request
@@ -40,13 +51,16 @@ class OrdersController < ApplicationController
 
   def destroy
     @order.destroy
-    redirect_to orders_path
+    flash[:status] = :success
+    flash[:result_text] = "Your order has been cancelled."
+    redirect_to root_path
   end
 
   private
 
   def order_params
     params.require(:order).permit(
+      :status,
       :name,
       :email,
       :address,

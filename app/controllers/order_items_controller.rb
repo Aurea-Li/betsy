@@ -1,25 +1,26 @@
 class OrderItemsController < ApplicationController
 
+  before_action :find_order_item, only: [:show, :edit, :update, :destroy]
+
   def index
-    @order_items = OrderItem.where(status: :pending)
+    @order_items = OrderItem.where(status: :pending, order_id: session[:order_id])
   end
 
   def new
     @order_item = OrderItem.new
   end
 
-
+  # order item is created when added to cart
   def create
 
     @order_item = OrderItem.new(order_item_params)
 
-    if session[:order_id]
-      order = Order.find_by(id: session[:order_id])
-    else
+    unless session[:order_id]
       order = Order.create
       session[:order_id] = order.id
     end
 
+    order = Order.find_by(id: session[:order_id])
 
     if order
 
@@ -46,7 +47,6 @@ class OrderItemsController < ApplicationController
         end
       end
 
-
     else
       flash[:status] = :failure
       flash[:result_text] = "Order for cart is invalid. Please restart browser and try again."
@@ -55,28 +55,25 @@ class OrderItemsController < ApplicationController
     redirect_back fallback_location: products_path
   end
 
-  def show
-    @order_item = OrderItem.find_by(id: params[:id])
+  def show;
   end
 
-  def edit
-    @order_item = OrderItem.find_by(id: params[:id])
+  def edit;
   end
 
   def update
-    @order_item = OrderItem.find_by(id: params[:id])
     if @order_item.update(order_item_params)
-      flash[:success] = "Successful update."
+      flash[:status] = :success
+      flash[:result_text] = "Update was successful."
       # where to redirect to?
     else
-      render :edit
-      # what do we want to render here?
+      flash[:status] = :failure
+      flash[:result_text] = "Update was not successful. Invalid input."
     end
+    redirect_back fallback_location: order_items_path
   end
 
   def destroy
-    @order_item = OrderItem.find_by(id: params[:id])
-
     @order_item.destroy
     flash[:status] = :success
     flash[:result_text] = "#{@order_item.product.name} successfully removed from cart."
@@ -88,5 +85,7 @@ class OrderItemsController < ApplicationController
     params.require(:order_item).permit(:quantity, :status, :product_id, :order_id)
   end
 
-
+  def find_order_item
+    @order_item = OrderItem.find_by(id: params[:id])
+  end
 end

@@ -26,6 +26,6 @@ locals: {
   <%= f.label :cc_expiration, 'Expiration date' %>
   <%= f.date_select :cc_expiration, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :use_month_numbers => true, :order => [:month, :year], class: "form-control" %>
 
-  <%= f.submit action_type, class: "order-form-submit-button btn btn-primary" %>
+  <%= f.submit 'Finalize Order', class: "order-form-submit-button btn btn-primary" %>
 
 <% end %>
