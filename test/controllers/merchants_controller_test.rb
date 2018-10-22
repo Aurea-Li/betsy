@@ -1,6 +1,7 @@
 require "test_helper"
-
+require 'pry'
 describe MerchantsController do
+  # let (:dogdays) {merchants(:dogdays)}
   describe "index" do
     it "should get index" do
       get merchants_path
@@ -17,6 +18,9 @@ describe MerchantsController do
   # end
 
   describe "create" do
+    # before do
+    #   dogdays
+    # end
     it "can create a merchant with valid data" do
       merchant_data = {
         merchant: {
@@ -37,8 +41,22 @@ describe MerchantsController do
       must_redirect_to merchant_path(Merchant.last)
     end
 
-    it "does not create a book with invalid data" do
+    it "does not create a merchant with invalid data" do
+      bad_merchant_data = {
+        merchant: {
+          username: 'dogdays'
+        }
+      }
 
+      bad_merchant = Merchant.new(bad_merchant_data[:merchant])
+      
+      bad_merchant.wont_be :valid?, "Merchant data was valid. Please come fix this test."
+
+      expect {
+        post merchants_path, params: bad_merchant_data
+      }.wont_change('Merchant.count')
+
+      must_respond_with :bad_request
     end
   end
 
