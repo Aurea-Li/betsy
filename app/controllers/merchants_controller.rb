@@ -13,7 +13,7 @@ class MerchantsController < ApplicationController
       redirect_to merchant_path(@merchant)
     else
       flash.now[:error] = "Merchant not created. Please try again"
-      render :new, status: :bad_request
+      head :bad_request
     end
   end
 
