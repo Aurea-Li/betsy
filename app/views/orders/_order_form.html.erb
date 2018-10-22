@@ -6,7 +6,7 @@ locals: {
 
 <%= form_with model: @order, class: 'order-form' do |f| %>
 
-  <h3> Finalize Order Form </h3>
+  <h3> <%= form_title %> </h3>
 
   <%= f.label :name %>
   <%= f.text_field :name, class: "form-control" %>
