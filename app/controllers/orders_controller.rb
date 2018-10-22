@@ -36,15 +36,19 @@ class OrdersController < ApplicationController
     if @order
       @order.status = 'paid'
       @order.save
-      # binding.pry
+
       @order.order_items.each do |item|
         item.status = 'paid'
         item.save
       end
       session[:order_id] = nil
-      # binding.pry
+
+      flash[:status] = :success
+      flash[:result_text] = "Order successfully finalized."
       redirect_to order_path(@order.id)
     else
+      flash[:status] = :failure
+      flash[:result_text] = "Order information is invalid. Please try again."
       render :edit, status: :bad_request
     end
   end
