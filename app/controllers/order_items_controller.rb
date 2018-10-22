@@ -23,14 +23,22 @@ class OrderItemsController < ApplicationController
 
     if order
 
-      duplicate_items = OrderItem.find_by(product_id: @order_item.product_id, status: 'pending')
+      duplicate_item = OrderItem.find_by(product_id: @order_item.product_id, status: 'pending')
 
-      if duplicate_items
-        quantity = duplicate_items.quantity + @order_item.quantity
-        duplicate_items.update(quantity: quantity)
+      if duplicate_item
+        quantity = duplicate_item.quantity + @order_item.quantity
+        duplicate_item.update(quantity: quantity)
 
-        flash[:status] = :success
-        flash[:result_text] = "Quantity of #{@order_item.product.name} is updated."
+        remaining_stock = duplicate_item.product.stock - duplicate_item.quantity
+
+        if duplicate_item.product.update(stock: remaining_stock)
+
+          flash[:status] = :success
+          flash[:result_text] = "Quantity of #{@order_item.product.name} is updated."
+        else
+          flash[:status] = :failure
+          flash[:result_text] = "Quantity requested exceeds stock. Please try again."
+        end
       else
 
         @order_item.order_id = session[:order_id]
@@ -52,13 +60,12 @@ class OrderItemsController < ApplicationController
         else
           flash[:status] = :failure
           flash[:result_text] = "Error adding item to cart"
-          # should other messages be displayed if it isn't successfully saved? i.e., 'quantity not available'
         end
       end
 
     else
       flash[:status] = :failure
-      flash[:result_text] = "Order for cart is invalid. Please restart browser and try again. session order id: #{session[:order_id]}"
+      flash[:result_text] = "Order for cart is invalid. Please restart browser and try again."
       session[:order_id] = nil
     end
 
