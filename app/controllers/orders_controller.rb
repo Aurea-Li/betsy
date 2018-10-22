@@ -1,4 +1,3 @@
-require 'pry'
 class OrdersController < ApplicationController
 
   before_action :find_order, except: [:index, :new, :create]
