@@ -57,13 +57,24 @@ describe ProductsController do
 
   describe "create" do
     it "creates new product when given valid data" do
+      merchant = merchants(:dogdays)
+
+      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_merchant_hash(merchant))
+
+      get auth_callback_path(:github)
+
       product_hash = {
         product: {
           name: "Test product",
-          price: 3,
-          merchant_id: Merchant.first.id
+          price: 3.50,
+          stock: 5,
+          active: true,
+          category: "cats"
          }
       }
+
+      test_product = Product.new(product_hash[:product])
+      test_product.must_be :valid?, "Book data was invalid. Please come fix this test."
 
       expect {
         post products_path, params: product_hash }.must_change 'Product.count', 1
