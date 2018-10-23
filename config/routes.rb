@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   root 'products#root'
 
   resources :merchants
-  resources :products, except: [:show] do
-    resources :reviews, only: [:index, :new, :create]
+  resources :products do
+    resources :reviews, only: [:new, :create]
   end
 
   resources :order_items, except: [:new]

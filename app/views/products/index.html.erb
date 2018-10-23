@@ -8,7 +8,7 @@
       <div class="card-body">
         <h5 class="card-title"><%= product.name %></h5>
         <p class="card-text"><%= product.description%></p>
-        <%= link_to "Learn more", product_reviews_path(product.id), class:"btn btn-primary"%>
+        <%= link_to "Learn more", product_path(product.id), class:"btn btn-primary"%>
       </div>
     </div>
     <% end %>

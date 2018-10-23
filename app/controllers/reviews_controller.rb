@@ -2,11 +2,6 @@ class ReviewsController < ApplicationController
 
   before_action :find_product
 
-  def index
-    @reviews = @product.reviews
-    @order_item = OrderItem.new(quantity: 1, status: 'pending')
-  end
-
   def new
     @review = Review.new
   end
@@ -17,7 +12,7 @@ class ReviewsController < ApplicationController
     if @review.save
       flash[:status] = :success
       flash[:result_text] = "Review successfully saved."
-      redirect_to product_reviews_path(@product.id)
+      redirect_to product_path(@product.id)
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Invalid review. Please try again."
