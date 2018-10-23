@@ -7,7 +7,8 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @order_item = OrderItem.new
+    @reviews = @product.reviews
+    @order_item = OrderItem.new(quantity: 1, status: 'pending')
   end
 
   def new
