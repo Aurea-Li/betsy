@@ -1,5 +1,5 @@
 <div class="merchant-products">
-  <h3>Paid Order Items &nbsp Count: <%= "#{Merchant.paid_order_items(@merchant).length}" %></h3>
+  <h3>Paid Order Items &nbsp Count: <%= "#{@merchant.paid_order_items.length}" %></h3>
   <table class="table merchant-products-table">
     <thead>
       <tr>
@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% Merchant.paid_order_items(@merchant).each do |item| %>
+      <% @merchant.paid_order_items.each do |item| %>
         <% if item.status == "paid" %>
           <tr>
             <td><%= link_to item.id, order_path(item.id) %></td>

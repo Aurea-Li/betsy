@@ -1,5 +1,5 @@
 <div class="merchant-products">
-  <h3>Cancelled Order Items &nbsp Count: <%= "#{Merchant.cancelled_order_items(@merchant).length}" %></h3>
+  <h3>Cancelled Order Items &nbsp Count: <%= "#{@merchant.cancelled_order_items.length}" %></h3>
   <table class="table merchant-products-table">
     <thead>
       <tr>
@@ -12,8 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @merchant.order_items.each do |item| %>
-        <% if item.status == "cancelled" %>
+      <% @merchant.cancelled_order_items.each do |item| %>
           <tr>
             <td><%= link_to item.id, order_path(item.id) %></td>
             <td><%= item.product_id %></td>
@@ -22,7 +21,6 @@
             <td><%= item.price %></td>
             <td><%= item.status %></td>
           </tr>
-        <% end %>
       <% end %>
     </tbody>
   </table>

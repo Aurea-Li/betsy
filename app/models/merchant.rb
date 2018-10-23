@@ -15,19 +15,19 @@ class Merchant < ApplicationRecord
     return merchant
   end
 
-  def self.paid_order_items(merchant)
-    return merchant.order_items.where(status: 'paid')
+  def paid_order_items
+    return self.order_items.where(status: 'paid')
   end
 
-  def self.pending_order_items(merchant)
-    return merchant.order_items.where(status: 'pending')
+  def pending_order_items
+    return self.order_items.where(status: 'pending')
   end
 
-  def self.cancelled_order_items(merchant)
-    return merchant.order_items.where(status: 'cancelled')
+  def cancelled_order_items
+    return self.order_items.where(status: 'cancelled')
   end
 
-  def self.complete_order_items(merchant)
-    return merchant.order_items.where(status: 'complete')
+  def complete_order_items
+    return self.order_items.where(status: 'complete')
   end
 end
