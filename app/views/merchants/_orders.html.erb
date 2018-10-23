@@ -8,6 +8,7 @@
         <th>Product ID</th>
         <th>Description</th>
         <th>Quantity</th>
+        <th>Price</th>
         <th>Status</th>
       </tr>
     </thead>
@@ -19,6 +20,7 @@
         <td><%= order.product_id %></td>
         <td><%= order.product.name %></td>
         <td><%= order.quantity %></td>
+        <td><%= order.price %></td>
         <td><%= order.status %></td>
       </tr>
     <% end %>
