@@ -27,8 +27,8 @@ class OrderItemsController < ApplicationController
 
       if duplicate_item
 
-        remaining_stock = duplicate_item.product.stock - duplicate_item.quantity
-
+        remaining_stock = duplicate_item.product.stock - order_item_params[:quantity].to_i
+        
         if duplicate_item.product.update(stock: remaining_stock)
 
           quantity = duplicate_item.quantity + @order_item.quantity
@@ -103,7 +103,7 @@ class OrderItemsController < ApplicationController
       flash[:status] = :failure
       flash[:result_text] = "Quantity requested exceeds stock. Please try again."
     end
-    
+
     redirect_back fallback_location: order_items_path
   end
 
