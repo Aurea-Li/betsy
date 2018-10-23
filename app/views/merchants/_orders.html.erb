@@ -1,5 +1,5 @@
 <div class="merchant-products">
-  <h3>Order Items</h3>
+  <h3>All Order Items</h3>
   <table class="table merchant-products-table">
     <thead>
       <tr>
@@ -12,24 +12,16 @@
       </tr>
     </thead>
     <tbody>
-    <% OrderItem.find_order_items(@merchant).each do |order| %>
-      <tr>
-        <% id = order.order_id %>
-        <td><%= link_to order.order_id, order_path(id) %></td>
-        <td><%= order.product_id %></td>
-        <td><%= order.product.name %></td>
-        <td><%= order.quantity %></td>
-        <td><%= order.price %></td>
-        <td><%= order.status %></td>
-      </tr>
-    <% end %>
+      <% @merchant.order_items.each do |item| %>
+        <tr>
+          <td><%= link_to item.id, order_path(item.id) %></td>
+          <td><%= item.product_id %></td>
+          <td><%= item.product.description %></td>
+          <td><%= item.quantity %></td>
+          <td><%= item.price %></td>
+          <td><%= item.status %></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>
-
-<% @merchant.products.each do |product| %>
-  <% product.order_items.each do |order| %>
-    <%= order.id %>
-    <%= order.product.name %>
-  <% end %>
-<% end %>
