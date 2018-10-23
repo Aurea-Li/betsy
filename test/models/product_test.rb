@@ -97,4 +97,17 @@ describe Product do
 
     end
   end
+
+  describe 'rating' do
+    it 'returns average of the reviews rating' do
+
+      expect( @p.rating ).must_be_close_to 3.5, 0.01
+    end
+
+    it 'returns nil for a product with no reviews' do
+      no_reviews = products(:product_two)
+
+      expect( no_reviews.rating ).must_be_nil
+    end
+  end
 end
