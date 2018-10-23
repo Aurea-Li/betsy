@@ -16,14 +16,22 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
-    if @product.save
-      flash[:status] = :success
-      flash[:result_text] = "Product successfully created."
-      redirect_to products_path
+    if session[:user_id]
+      @product = Product.new(product_params)
+      @product.merchant_id = session[:user_id]
+
+      if @product.save
+        flash[:status] = :success
+        flash[:result_text] = "Product successfully created."
+        redirect_to products_path
+      else
+        flash[:status] = :failure
+        flash[:result_text] = "Product info invalid. Please try again."
+        render :new
+      end
     else
       flash.now[:status] = :failure
-      flash.now[:result_text] = "Product info invalid. Please try again."
+      flash.now[:result_text] = "Only logged in merchants can create products"
       render :new
     end
   end
