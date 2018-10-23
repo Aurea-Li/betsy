@@ -4,15 +4,16 @@ class MerchantsController < ApplicationController
     @merchant = Merchant.new
   end
 
-
   def create
     @merchant = Merchant.new(merchant_params)
 
     if @merchant.save
-      flash[:success] = "Successfully created new merchant"
+      flash[:status] = :success
+      flash[:result_text] = "Successfully created new merchant"
       redirect_to merchant_path(@merchant)
     else
-      flash.now[:error] = "Merchant not created. Please try again"
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Merchant not created. Please try again"
       render :new, status: :bad_request
     end
   end

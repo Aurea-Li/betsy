@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   root 'products#root'
 
   resources :merchants
-  resources :products
+  resources :products do
+    resources :reviews, only: [:new, :create]
+  end
+
   resources :order_items, except: [:new]
   resources :orders
 
@@ -13,7 +16,5 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy', as: 'logout'
 
   get '/merchants/:id/dashboard', to: 'merchants#dashboard', as: 'dashboard'
-
-
 
 end
