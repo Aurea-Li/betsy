@@ -1,0 +1,27 @@
+<!-- <h3>Orders</h3> -->
+<div class="merchant-products">
+  <h3>Order Items</h3>
+  <table class="table merchant-products-table">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Product ID</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% OrderItem.find_order_items(@merchant).each do |order| %>
+      <tr>
+        <% id = order.order_id %>
+        <td><%= link_to order.order_id, order_path(id) %></td>
+        <td><%= order.product_id %></td>
+        <td><%= order.product.name %></td>
+        <td><%= order.quantity %></td>
+        <td><%= order.status %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
