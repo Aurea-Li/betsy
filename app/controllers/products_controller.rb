@@ -16,29 +16,43 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
-    if @product.save
-      flash[:status] = :success
-      flash[:result_text] = "Product successfully created."
-      redirect_to products_path
-    else
+    if session[:user_id]
+      @product = Product.new(product_params)
+      @product.merchant_id = session[:user_id]
+
+      if @product.save
+        flash[:status] = :success
+        flash[:result_text] = "Product successfully created."
+        redirect_to products_path
+      else
+        flash.now[:status] = :failure
+        flash.now[:result_text] = "Product info invalid. Please try again."
+        render :new
+      end
+    else # Not needed?
       flash.now[:status] = :failure
-      flash.now[:result_text] = "Product info invalid. Please try again."
+      flash.now[:result_text] = "Only logged in merchants can create products"
       render :new
     end
   end
 
-  def edit;
+  def edit
   end
 
   def update
-    if @product.update(product_params)
-      flash[:status] = :success
-      flash[:result_text] = "Product successfully edited."
-      redirect_to product_path(@product)
+    if session[:user_id] && (session[:user_id] == @product.merchant_id)
+      if @product.update(product_params)
+        flash[:status] = :success
+        flash[:result_text] = "Product successfully edited."
+        redirect_to product_path(@product)
+      else
+        flash.now[:status] = :failure
+        flash.now[:result_text] = "Product info invalid. Please try again."
+        render :edit
+      end
     else
       flash.now[:status] = :failure
-      flash.now[:result_text] = "Product info invalid. Please try again."
+      flash.now[:result_text] = "Only a logged in merchant may update their product."
       render :edit
     end
   end
@@ -49,6 +63,8 @@ class ProductsController < ApplicationController
     flash[:result_text] = "Product successfully deleted."
     redirect_to products_path
   end
+
+private
 
   def product_params
     params.require(:product).permit(:name, :price, :description, :photo, :stock, :active, :category, :rating, :merchant_id)

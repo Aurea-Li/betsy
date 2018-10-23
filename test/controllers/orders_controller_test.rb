@@ -86,7 +86,7 @@ describe OrdersController do
       test_order = Order.new(order_data[:order])
       expect(test_order).must_be :valid?, "Order data was invalid. Please fix."
 
-      expect{
+      expect {
         patch order_path(existing_order.id), params: order_data
       }.wont_change('Order.count')
 

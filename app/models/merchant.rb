@@ -29,5 +29,15 @@ class Merchant < ApplicationRecord
 
   def complete_order_items
     return self.order_items.where(status: 'complete')
+
+  def rating
+
+    products_with_reviews = self.products.find_all{ |product| product.rating }
+
+
+    unless products_with_reviews
+      return 1.0 * products_with_reviews.sum{ |product| product.rating } / products_with_reviews.length
+    end
+
   end
 end
