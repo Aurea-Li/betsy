@@ -16,31 +16,3 @@
 
 <%= will_paginate @products %>
 </section>
-<!-- <table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Photo</th>
-      <th>Stock</th>
-      <th>Category</th>
-      <th>Rating</th>
-      <th>Description</th>
-      <th>Merchant ID</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @products.each do |product| %>
-    <tr>
-      <td><%= link_to product.name, product_path(product.id) %></td>
-      <td><%= product.price %></td>
-      <td> <%= image_tag product.photo, alt: product.name %> </td>
-      <td><%= product.stock %></td>
-      <td><%= product.category %></td>
-      <td><%= product.rating %></td>
-      <td><%= product.merchant_id %></td>
-
-    </tr>
-    <% end %>
-  </tbody>
-</table> -->
