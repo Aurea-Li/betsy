@@ -42,9 +42,12 @@
             <%= link_to " CART ", order_items_path, class: "fas fa-shopping-cart" %>
           </li>
           <% if session[:user_id] %>
-          <li>
-            <%= link_to " LOG OUT ", '/logout', method: :delete, class: "fas fa-user"%>
-          </li>
+            <li>
+              <%= link_to " VIEW DASHBOARD"%>
+            </li>
+            <li>
+              <%= link_to " LOG OUT ", '/logout', method: :delete, class: "fas fa-user"%>
+            </li>
           <% else %>
             <li>
               <%= link_to " LOG IN ", '/auth/github', class: "fas fa-user"%>
