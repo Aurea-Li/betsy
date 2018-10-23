@@ -29,6 +29,7 @@ class Merchant < ApplicationRecord
 
   def complete_order_items
     return self.order_items.where(status: 'complete')
+  end
 
   def rating
 

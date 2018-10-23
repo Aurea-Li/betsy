@@ -43,7 +43,7 @@
           </li>
           <% if session[:user_id] %>
             <li>
-              <%= link_to " VIEW DASHBOARD"%>
+              <%= link_to " VIEW DASHBOARD", dashboard_path(session[:user_id])%>
             </li>
             <li>
               <%= link_to " LOG OUT ", '/logout', method: :delete, class: "fas fa-user"%>
