@@ -56,7 +56,7 @@ describe ProductsController do
   end
 
   describe "create" do
-    it "creates new product when given valid data" do
+    it "creates new product when logged in and given valid data" do
       merchant = merchants(:dogdays)
 
       OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_merchant_hash(merchant))
@@ -67,6 +67,7 @@ describe ProductsController do
         product: {
           name: "Test product",
           price: 3.50,
+          merchant: merchant,
           stock: 5,
           active: true,
           category: "cats"
@@ -74,14 +75,14 @@ describe ProductsController do
       }
 
       test_product = Product.new(product_hash[:product])
-      test_product.must_be :valid?, "Book data was invalid. Please come fix this test."
+      test_product.must_be :valid?, "Product data was invalid. Please come fix this test."
 
       expect {
         post products_path, params: product_hash }.must_change 'Product.count', 1
 
       must_respond_with :redirect
-
-      expect(Product.count).must_equal 3
+      must_redirect_to products_path
+    
       expect(Product.last.name).must_equal product_hash[:product][:name]
     end
   end
