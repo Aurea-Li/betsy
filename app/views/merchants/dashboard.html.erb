@@ -5,11 +5,19 @@
     <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Products</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">All Orders</a>
+    <a class="nav-link" id="pills-allorder-tab" data-toggle="pill" href="#pills-allorder" role="tab" aria-controls="pills-allorder" aria-selected="false">All Orders</a>
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Pending Orders</a>
+    <a class="nav-link" id="pills-pendorder-tab" data-toggle="pill" href="#pills-pendorder" role="tab" aria-controls="pills-pendorder" aria-selected="false">Pending Orders</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" id="pills-paidorder-tab" data-toggle="pill" href="#pills-paidorder" role="tab" aria-controls="pills-paidorder" aria-selected="false">Paid Orders</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" id="pills-cancelorder-tab" data-toggle="pill" href="#pills-cancelorder" role="tab" aria-controls="pills-cancelorder" aria-selected="false">Cancelled Orders</a>
   </li>
 </ul>
 
@@ -17,10 +25,16 @@
   <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
     <%= render partial: "products" %>
   </div>
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+  <div class="tab-pane fade" id="pills-allorder" role="tabpanel" aria-labelledby="pills-allorder-tab">
     <%= render partial: "orders" %>
   </div>
-  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+  <div class="tab-pane fade" id="pills-pendorder" role="tabpanel" aria-labelledby="pills-pendorder-tab">
     <%= render partial: "pending_orders" %>
+  </div>
+  <div class="tab-pane fade" id="pills-paidorder" role="tabpanel" aria-labelledby="pills-paidorder-tab">
+    <%= render partial: "paid_orders" %>
+  </div>
+  <div class="tab-pane fade" id="pills-cancelorder" role="tabpanel" aria-labelledby="pills-cancelorder-tab">
+    <%= render partial: "cancelled_orders" %>
   </div>
 </div>
