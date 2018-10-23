@@ -1,4 +1,3 @@
-require 'pry'
 class OrdersController < ApplicationController
 
   before_action :find_order, except: [:index, :new, :create]
@@ -31,20 +30,19 @@ class OrdersController < ApplicationController
   end
 
   def update
-    @order.update_attributes(order_params)
 
-    if @order
-      @order.status = 'paid'
-      @order.save
-      # binding.pry
-      @order.order_items.each do |item|
-        item.status = 'paid'
-        item.save
-      end
+    @order.update_attributes(order_params)
+    @order.paid
+
+    if @order.save
       session[:order_id] = nil
-      # binding.pry
+
+      flash[:status] = :success
+      flash[:result_text] = "Order successfully finalized."
       redirect_to order_path(@order.id)
     else
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Order information is invalid. Please try again."
       render :edit, status: :bad_request
     end
   end
