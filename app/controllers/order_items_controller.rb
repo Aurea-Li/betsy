@@ -1,6 +1,6 @@
 class OrderItemsController < ApplicationController
 
-  before_action :find_order_item, only: [:show, :edit, :update, :destroy]
+  before_action :find_order_item, only: [:show, :edit, :update, :destroy, :status]
 
   def index
     @order_items = OrderItem.where(status: 'pending', order_id: session[:order_id])
@@ -28,7 +28,7 @@ class OrderItemsController < ApplicationController
       if duplicate_item
 
         remaining_stock = duplicate_item.product.stock - order_item_params[:quantity].to_i
-        
+
         if duplicate_item.product.update(stock: remaining_stock)
 
           quantity = duplicate_item.quantity + @order_item.quantity
@@ -114,6 +114,17 @@ class OrderItemsController < ApplicationController
     redirect_to order_items_path
   end
 
+  def status
+    if @order_item.update(status: 'complete')
+      flash[:status] = :success
+      flash[:result_text] = "Order item number #{@order_item.id} has been completed."
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "There was a problem. Order #{@order_item.id} has not been updated."
+    end
+    redirect_to dashboard_path(session[:user_id])
+  end
+
   private
   def order_item_params
     params.require(:order_item).permit(:quantity, :status, :product_id, :order_id)
@@ -121,5 +132,6 @@ class OrderItemsController < ApplicationController
 
   def find_order_item
     @order_item = OrderItem.find_by(id: params[:id])
+    head :not_found unless @order_item
   end
 end

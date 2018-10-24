@@ -9,6 +9,7 @@
         <th>Quantity</th>
         <th>Price</th>
         <th>Status</th>
+        <th>      </th>
       </tr>
     </thead>
     <tbody>
@@ -20,6 +21,7 @@
             <td><%= item.quantity %></td>
             <td><%= item.price %></td>
             <td><%= item.status %></td>
+            <td><%= link_to "Fulfill order", order_items_status_path(item.id), method: :post, class: 'btn btn-primary' %></td>
           </tr>
       <% end %>
     </tbody>
