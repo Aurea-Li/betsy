@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
   def update
 
     @order.update_attributes(order_params)
-    @order.paid
+    @order.set_paid
 
     if @order.save
       session[:order_id] = nil
