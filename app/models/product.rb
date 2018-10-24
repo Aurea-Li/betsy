@@ -15,5 +15,6 @@ class Product < ApplicationRecord
     unless self.reviews.empty?
       return 1.0 * self.reviews.sum{ |review| review.rating } / self.reviews.length
     end
+    return "No ratings"
   end
 end
