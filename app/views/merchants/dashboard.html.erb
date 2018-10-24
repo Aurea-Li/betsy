@@ -18,6 +18,10 @@
   </li>
 
   <li class="nav-item">
+    <a class="nav-link" id="pills-completeorder-tab" data-toggle="pill" href="#pills-completeorder" role="tab" aria-controls="pills-completeorder" aria-selected="false">Completed Orders</a>
+  </li>
+
+  <li class="nav-item">
     <a class="nav-link" id="pills-cancelorder-tab" data-toggle="pill" href="#pills-cancelorder" role="tab" aria-controls="pills-cancelorder" aria-selected="false">Cancelled Orders</a>
   </li>
 </ul>
@@ -34,6 +38,9 @@
   </div>
   <div class="tab-pane fade" id="pills-paidorder" role="tabpanel" aria-labelledby="pills-paidorder-tab">
     <%= render partial: "paid_orders" %>
+  </div>
+  <div class="tab-pane fade" id="pills-completeorder" role="tabpanel" aria-labelledby="pills-completeorder-tab">
+    <%= render partial: "complete_orders" %>
   </div>
   <div class="tab-pane fade" id="pills-cancelorder" role="tabpanel" aria-labelledby="pills-cancelorder-tab">
     <%= render partial: "cancelled_orders" %>
