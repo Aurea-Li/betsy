@@ -29,6 +29,11 @@ class MerchantsController < ApplicationController
     @merchants = Merchant.all
   end
 
+  def dashboard
+    @merchant = Merchant.find_by(id: params[:id])
+    head :not_found unless @merchant
+  end
+
   # def edit
   #   @merchant = Merchant.find(params[:id])
   # end

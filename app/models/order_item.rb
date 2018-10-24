@@ -11,4 +11,5 @@ class OrderItem < ApplicationRecord
   def price
     return self.product.price * self.quantity
   end
+
 end

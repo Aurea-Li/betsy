@@ -1,0 +1,27 @@
+<div class="merchant-products">
+  <h3>Complete Order Items &nbsp Count: <%= "#{@merchant.complete_order_items.length}" %></h3>
+  <table class="table merchant-products-table">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Product ID</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @merchant.complete_order_items.each do |item| %>
+          <tr>
+            <td><%= link_to item.id, order_path(item.id) %></td>
+            <td><%= item.product_id %></td>
+            <td><%= item.product.description %></td>
+            <td><%= item.quantity %></td>
+            <td><%= item.price %></td>
+            <td><%= item.status %></td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
