@@ -69,6 +69,10 @@ header a:hover, header a:link, header a:visited, footer {
   margin: 1em;
 }
 
+header a:hover {
+  text-decoration: underline;
+}
+
 .header-subheading {
   margin-bottom: 2em;
 }
