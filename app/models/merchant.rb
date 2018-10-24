@@ -33,10 +33,12 @@ class Merchant < ApplicationRecord
 
   def rating
 
+
     products_with_reviews = self.products.find_all{ |product| product.rating }
 
-
-    unless products_with_reviews
+    if products_with_reviews.empty?
+      return nil
+    else
       return 1.0 * products_with_reviews.sum{ |product| product.rating } / products_with_reviews.length
     end
 

@@ -12,3 +12,11 @@ review_two:
   name: Ada
   rating: 5
   product: product_one
+review_three:
+  name: Val
+  rating: 4
+  product: product_five
+review_four:
+  name: Val
+  rating: 5
+  product: product_six
