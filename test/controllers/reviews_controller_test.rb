@@ -23,6 +23,7 @@ describe ReviewsController do
       # expect {
       #   post product_reviews_path(product), params: review_data
       # }.must_change('Review.count', +1)
+      # VNG: In the console, Review.count returns 0, so I think there's a problem with our yml files/test database.
       post product_reviews_path(product), params: review_data
       must_respond_with :success
       # must_redirect_to product_path(product)
