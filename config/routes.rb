@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :order_items, except: [:new]
-  resources :orders
+  resources :orders, except: [:new]
 
   resources :sessions, only: [:new, :create]
 

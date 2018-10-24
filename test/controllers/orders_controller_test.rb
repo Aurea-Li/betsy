@@ -17,7 +17,7 @@ describe OrdersController do
         address: '123 Street Dr. Seattle, WA',
         cc_num: 1123384229389283,
         cc_cvv: 280,
-        cc_expiration: 01-9-2020
+        cc_expiration: '2020-09-01'
       }
     }
   }
@@ -42,16 +42,6 @@ describe OrdersController do
     end
   end
 
-
-  #VNG - Do we need the new action?
-  # describe "new" do
-  #   it "can get the new page" do
-  #     get new_order_path
-  #
-  #     must_respond_with :success
-  #   end
-  # end
-
   describe "create" do
     it "can create an order" do
       test_order = Order.new(order_data[:order])
@@ -62,6 +52,7 @@ describe OrdersController do
       }.must_change('Order.count', +1 )
 
       must_redirect_to order_path(Order.last)
+      must_respond_with :redirect
     end
   end
 
