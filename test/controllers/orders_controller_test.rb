@@ -66,9 +66,10 @@ describe OrdersController do
     it "renders 404 not_found for a bogus order ID" do
       existing_order.destroy
 
+    expect{
       get edit_order_path(existing_order.id)
+    }.must_raise(ActionController::RoutingError)
 
-      must_respond_with :not_found
     end
   end
 
@@ -89,16 +90,13 @@ describe OrdersController do
       must_redirect_to order_path(existing_order.id)
     end
 
-    it "renders bad_request for bogus data" do
-
-    end
-
     it "renders 404 not_found for a bogus order ID" do
       existing_order.destroy
 
+    expect{
       patch order_path(existing_order.id), params: order_data
+    }.must_raise(ActionController::RoutingError)
 
-      must_respond_with :not_found
     end
   end
 
@@ -109,8 +107,7 @@ describe OrdersController do
       }.must_change('Order.count', -1)
 
       must_respond_with :redirect
-      # must_redirect_to orders_path
-      #VNG- I'm not sure why redirecting to orders_path (line above) gives test errors?
+      must_redirect_to root_path
     end
 
     it "renders 404 not_found and does not update the DB for a bogus order ID" do
@@ -118,9 +115,7 @@ describe OrdersController do
 
       expect{
         delete order_path(existing_order.id)
-      }.wont_change('Order.count')
-
-      must_respond_with :not_found
+      }.must_raise(ActionController::RoutingError)
 
     end
   end

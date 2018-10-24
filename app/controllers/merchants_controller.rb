@@ -14,14 +14,14 @@ class MerchantsController < ApplicationController
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Merchant not created. Please try again"
-      render :new, status: :bad_request
+      redirect_to :index, status: :bad_request
     end
   end
 
 
   def show
     @merchant = Merchant.find_by(id: params[:id])
-    head :not_found unless @merchant
+    render_404 unless @merchant
   end
 
 
@@ -31,30 +31,8 @@ class MerchantsController < ApplicationController
 
   def dashboard
     @merchant = Merchant.find_by(id: params[:id])
-    head :not_found unless @merchant
+    render_404 unless @merchant
   end
-
-  # def edit
-  #   @merchant = Merchant.find(params[:id])
-  # end
-  #
-  # def update
-  #   @merchant = Merchant.find(params[:id])
-  #
-  #   if @merchant.save(merchant_params)
-  #     flash[:success] = "Successfully updated merchant."
-  #     redirect_to merchant_path(@merchant)
-  #   else
-  #     flash.now[:error] = "Invalid merchant information"
-  #     render :edit, status: :not_found
-  #   end
-  # end
-
-  # def destroy
-  #   # Add sessions id / OAuth handling
-  #   @merchant.destroy
-  #   redirect_to merchants_path
-  # end
 
 private
 

@@ -28,7 +28,7 @@ class OrderItemsController < ApplicationController
       if duplicate_item
 
         remaining_stock = duplicate_item.product.stock - order_item_params[:quantity].to_i
-        
+
         if duplicate_item.product.update(stock: remaining_stock)
 
           quantity = duplicate_item.quantity + @order_item.quantity
@@ -121,5 +121,6 @@ class OrderItemsController < ApplicationController
 
   def find_order_item
     @order_item = OrderItem.find_by(id: params[:id])
+    render_404 unless @order_item
   end
 end
