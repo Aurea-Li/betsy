@@ -12,3 +12,5 @@ bob:
  cc_num: 1232837292749182
  cc_cvv: 293
  cc_expiration: 01-09-2018
+incomplete_order:
+  status: pending
