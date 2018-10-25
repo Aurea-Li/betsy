@@ -54,6 +54,9 @@ class OrdersController < ApplicationController
     redirect_to root_path
   end
 
+  def customerinfo
+  end
+
   private
 
   def order_params
