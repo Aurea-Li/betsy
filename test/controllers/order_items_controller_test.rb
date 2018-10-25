@@ -20,15 +20,69 @@ describe OrderItemsController do
       #
       #   must_respond_with :success
       # end
-      #VNG: There's no new view template, so this test doesn't pass.
+      #TODO: VNG: Do we need this test?
     end
 
     describe 'create' do
       it "creates new order for first item added to cart" do
 
+        order_item_data = {
+          order_item: {
+            quantity: 1,
+            status: 'pending',
+            product_id: Product.first.id
+          }
+        }
+
+        before = OrderItem.count
+
+        expect {
+          post order_items_path, params: order_item_data
+        }.must_change('Order.count', +1)
+
+        expect(OrderItem.count).must_equal before + 1
+
+        expect(flash[:status]).must_equal :success
+        expect(flash[:result_text]).must_equal "Item successfully added to cart. "
+
+        expect(session[:order_id]).must_equal OrderItem.last.order_id
+
+        must_respond_with :redirect
       end
 
       it "successfully adds order item to existing order" do
+
+        merchant = merchants(:dogdays)
+        perform_login(merchant)
+
+        order_item_data = {
+          order_item: {
+            quantity: 7,
+            status: 'pending',
+            product_id: products(:product_one).id,
+            order_id: orders(:merchant).id
+          }
+        }
+
+        test_item = OrderItem.new(order_item_data[:order_item])
+        test_item.must_be :valid?, "OrderItem data was invalid. Please fix this test."
+
+        session[:order_id] = orders(:merchant).id
+
+        before = OrderItem.count
+
+        post order_items_path(order_item_data)
+
+        expect {
+          post order_items_path, params: order_item_data
+        }.wont_change('Order.count', +1)
+
+        expect(OrderItem.count).must_equal before + 1
+
+        expect(flash[:status]).must_equal :success
+        expect(flash[:result_text]).must_include "Cart successfully updated"
+
+        must_respond_with :redirect
 
       end
     end
