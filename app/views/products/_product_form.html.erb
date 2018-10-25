@@ -24,6 +24,10 @@
     <%= f.label :description %>
     <%= f.text_area :description %>
   </div>
+
+  <%= f.label :category %>
+  <%= f.select :category_id, Category.all.map{ |category| category.name } %>
+
   <div class="form-group">
     <%= f.submit class: "btn btn-primary" %>
   </div>

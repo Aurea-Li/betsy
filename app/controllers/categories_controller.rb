@@ -5,7 +5,17 @@ class CategoriesController < ApplicationController
   end
 
   def create
+    @category = Category.new(category_params)
 
+    if @category.save
+      flash[:status] = :success
+      flash[:result_text] = "Category #{@category.name} successfully created."
+      redirect_to dashboard_path(session[:user_id])
+    else
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Invalid category name. Please try again."
+      render :new
+    end
   end
 
   private
