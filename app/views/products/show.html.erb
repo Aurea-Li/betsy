@@ -15,9 +15,11 @@
   <li>Merchant: <%= @product.merchant.username %></li>
 </ul>
 
-<section>
-  <%= link_to "Edit", edit_product_path(@product), class: "btn btn-primary" %>
-</section>
+<% if @product.merchant.id == session[:user_id] %>
+  <section>
+    <%= link_to "Edit", edit_product_path(@product), class: "btn btn-primary" %>
+  </section>
+<% end %>
 
 <section>
 
