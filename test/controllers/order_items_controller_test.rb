@@ -1,5 +1,5 @@
 require "test_helper"
-
+require 'pry'
 describe OrderItemsController do
 
   describe "guest user" do
@@ -57,9 +57,9 @@ describe OrderItemsController do
 
         order_item_data = {
           order_item: {
-            quantity: 7,
+            quantity: 3,
             status: 'pending',
-            product_id: products(:product_one).id,
+            product_id: products(:product_two).id,
             order_id: orders(:merchant).id
           }
         }
@@ -83,6 +83,10 @@ describe OrderItemsController do
         expect(flash[:result_text]).must_include "Cart successfully updated"
 
         must_respond_with :redirect
+
+      end
+
+      it "shows an error if the quantity is greater than the product's stock" do
 
       end
     end
