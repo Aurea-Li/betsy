@@ -21,17 +21,17 @@ class OrderItemsController < ApplicationController
     end
 
     order = Order.find_by(id: session[:order_id])
-    # binding.pry
+
     if order
-      # binding.pry
+      # Search for existing OrderItem in cart to update
       duplicate_item = OrderItem.find_by(product_id: @order_item.product_id, order: order, status: 'pending')
-      # binding.pry
+
       if duplicate_item
-        # binding.pry
+
         quantity = @order_item.quantity + duplicate_item.quantity
 
         if quantity < duplicate_item.product.stock
-          # binding.pry
+
           duplicate_item.update(quantity: quantity)
           @order_item.reduce_stock(duplicate_item)
         # end
@@ -46,23 +46,23 @@ class OrderItemsController < ApplicationController
           flash[:result_text] = "Cart successfully updated - added #{@order_item.quantity} of #{@order_item.product.name}."
           # end
         else
-          # binding.pry
+
           flash[:status] = :failure
           flash[:result_text] = "Quantity requested exceeds stock. Please try again."
         end
     # end
     else
-      # binding.pry
+
       @order_item.order_id = session[:order_id]
         # order item is created when added to cart
       if @order_item.save
-        # binding.pry
+
         @order_item.reduce_stock
           # product = @order_item.product
           # remaining_stock = product.stock - @order_item.quantity
           #
           # if product.update(stock: remaining_stock)
-          # binding.pry
+
         flash[:status] = :success
         flash[:result_text] = "Item successfully added to cart. "
           # else
@@ -71,7 +71,7 @@ class OrderItemsController < ApplicationController
           # end
 
       else
-        # binding.pry
+
         flash[:status] = :failure
         flash[:result_text] = "Error adding item to cart"
       end
