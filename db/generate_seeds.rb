@@ -61,3 +61,14 @@ CSV.open('db/order_seeds.csv', "w", :write_headers=> true,
     csv << [status, name, email, address, cc_num, cc_cvv, cc_expiration]
   end
 end
+
+# Category seed script
+CSV.open('db/category_seeds.csv', "w", :write_headers=> true,
+  :headers => ["name"]) do |csv|
+
+  12.times do
+    name = Faker::Dog.breed
+
+    csv << [name]
+  end
+end
