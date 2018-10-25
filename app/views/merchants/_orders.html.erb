@@ -15,7 +15,7 @@
     <tbody>
       <% @merchant.order_items.each do |item| %>
         <tr>
-          <td><%= link_to item.order.id, order_path(item.order.id) %></td>
+          <td><%= link_to item.order.id, customer_info_path(item.order.id) %></td>
           <td><%= link_to item.product_id, product_path(item.product_id) %></td>
           <td><%= item.product.description %></td>
           <td><%= item.quantity %></td>
