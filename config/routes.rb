@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :sessions, only: [:new, :create]
 
+  resources :categories, only: [:new, :create]
+
   get '/auth/:provider/callback', to: "sessions#create", as: 'auth_callback'
   delete '/logout', to: 'sessions#destroy', as: 'logout'
 
