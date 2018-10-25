@@ -12,4 +12,11 @@ class OrderItem < ApplicationRecord
     return self.product.price * self.quantity
   end
 
+  def restock_product
+    product = Product.find_by(id: self.product)
+    new_stock = product.stock + self.quantity
+    product.update(stock: new_stock)
+    return new_stock
+  end
+
 end
