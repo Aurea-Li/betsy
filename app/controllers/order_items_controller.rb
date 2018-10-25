@@ -12,8 +12,8 @@ class OrderItemsController < ApplicationController
 
   # order item is created when added to cart
   def create
-
     @order_item = OrderItem.new(order_item_params)
+
     unless session[:order_id]
       order = Order.create(status: 'pending')
       session[:order_id] = order.id
@@ -23,51 +23,56 @@ class OrderItemsController < ApplicationController
 
     if order
 
-      duplicate_item = OrderItem.find_by(product_id: @order_item.product_id, status: 'pending')
+      duplicate_item = OrderItem.find_by(product_id: @order_item.product_id, order: order, status: 'pending')
 
       if duplicate_item
 
-        remaining_stock = duplicate_item.product.stock - order_item_params[:quantity].to_i
+        quantity = @order_item.quantity + duplicate_item.quantity
 
-        if duplicate_item.product.update(stock: remaining_stock)
+        if duplicate_item.update(quantity: quantity)
+          @order_item.reduce_stock(duplicate_item)
 
-          quantity = duplicate_item.quantity + @order_item.quantity
-          duplicate_item.update(quantity: quantity)
+        # remaining_stock = duplicate_item.product.stock - order_item_params[:quantity].to_i
+        #
+        # if duplicate_item.product.update(stock: remaining_stock)
+        #
+        #   quantity = duplicate_item.quantity + @order_item.quantity
+        #   duplicate_item.update(quantity: quantity)
 
           flash[:status] = :success
-          flash[:result_text] = "Quantity of #{@order_item.product.name} is updated."
-        else
-          flash[:status] = :failure
-          flash[:result_text] = "Quantity requested exceeds stock. Please try again."
+          flash[:result_text] = "Cart successfully updated - added #{@order_item.quantity} of #{@order_item.product.name}."
+        # else
+        #   flash[:status] = :failure
+        #   flash[:result_text] = "Quantity requested exceeds stock. Please try again."
         end
       else
 
         @order_item.order_id = session[:order_id]
         # order item is created when added to cart
         if @order_item.save
-
-          product = @order_item.product
-          remaining_stock = product.stock - @order_item.quantity
-
-          if product.update(stock: remaining_stock)
+          @order_item.reduce_stock
+          # product = @order_item.product
+          # remaining_stock = product.stock - @order_item.quantity
+          #
+          # if product.update(stock: remaining_stock)
 
             flash[:status] = :success
             flash[:result_text] = "Item successfully added to cart. "
-          else
-            flash[:status] = :failure
-            flash[:result_text] = "Quantity requested exceeds stock. Please try again."
-          end
+          # else
+          #   flash[:status] = :failure
+          #   flash[:result_text] = "Quantity requested exceeds stock. Please try again."
+          # end
 
         else
           flash[:status] = :failure
           flash[:result_text] = "Error adding item to cart"
         end
       end
-
-    else
-      flash[:status] = :failure
-      flash[:result_text] = "Order for cart is invalid. Please restart browser and try again."
-      session[:order_id] = nil
+    #
+    # else
+    #   flash[:status] = :failure
+    #   flash[:result_text] = "Order for cart is invalid. Please restart browser and try again."
+    #   session[:order_id] = nil
     end
 
     redirect_back fallback_location: products_path
