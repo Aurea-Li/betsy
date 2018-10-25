@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   STATUS = %w(pending paid complete cancelled)
-  has_many :order_items
+  has_many :order_items, dependent: :destroy
 
   validates :status,  presence: true,
   inclusion: { in: STATUS }
@@ -16,23 +16,32 @@ class Order < ApplicationRecord
     return self.status != 'pending'
   end
 
-  def price
+  def total
     return self.order_items.sum { |item| item.price}
   end
 
   def CC_num_last_four
-    return self.cc_num.to_s[-4..-1]
+
+    if self.cc_num
+      cc_str = self.cc_num.to_s
+
+      if cc_str.length < 4
+        return cc_str
+      else
+        return cc_str.to_s[-4..-1]
+      end
+    end
   end
 
   def total_quantity
     return self.order_items.sum {|item| item.quantity }
   end
 
-  def paid
-    self.status = 'paid'
+  def set_paid
+    self.update(status: 'paid')
 
     self.order_items.each do |item|
-      item.status = 'paid'
+      item.update(status: 'paid')
     end
   end
 

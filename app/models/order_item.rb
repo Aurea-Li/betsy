@@ -12,4 +12,16 @@ class OrderItem < ApplicationRecord
     return self.product.price * self.quantity
   end
 
+  def restock_product
+    product = Product.find_by(id: self.product)
+    new_stock = product.stock + self.quantity
+    product.update(stock: new_stock)
+    return new_stock
+  end
+
+  def reduce_stock(duplicate = self)
+    remaining_stock = duplicate.product.stock - self.quantity
+    return duplicate.product.update(stock: remaining_stock)
+  end
+
 end

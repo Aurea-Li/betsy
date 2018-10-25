@@ -46,7 +46,10 @@ header {
 
 .header-img {
   background-image: image-url("home/petstogether.jpeg");
-  width: 200px;
+  background-repeat: no-repeat;
+  background-position: left top;
+  width: 400px;
+  height: 350px;
 }
 
 nav {

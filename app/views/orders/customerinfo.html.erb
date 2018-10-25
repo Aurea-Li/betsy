@@ -1,4 +1,4 @@
-<h2> Order Confirmation </h2>
+<h2> Customer Order Detail </h2>
 
 <section>
   <ul>
@@ -29,12 +29,14 @@
   </thead>
 
   <% @order.order_items.each do |item| %>
-    <tr>
-      <td> <%= item.product.name %> </td>
-      <td> <%= item.quantity %> </td>
-      <td> <%= item.status %> </td>
-      <td> <%= item.price %>
-    </tr>
+    <% if session[:user_id] == item.product.merchant_id %>
+      <tr>
+        <td> <%= item.product.name %> </td>
+        <td> <%= item.quantity %> </td>
+        <td> <%= item.status %> </td>
+        <td> <%= item.price %> </td>
+      </tr>
+    <% end %>
   <% end %>
 
   <tr>
@@ -43,5 +45,3 @@
   </tr>
 </table>
 </section>
-
-<%= link_to "Cancel Order", order_path(@order), class: "btn btn-danger", method: :delete %>

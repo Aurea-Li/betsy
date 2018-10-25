@@ -12,3 +12,13 @@ bob:
  cc_num: 1232837292749182
  cc_cvv: 293
  cc_expiration: 01-09-2018
+incomplete_order:
+  status: pending
+merchant:
+  status: pending
+  name: Dog Days
+  email: dog@days.com
+  address: 100 10th Avenue, Seattle WA
+  cc_num: 1232837292749182
+  cc_cvv: 293
+  cc_expiration: 01-09-2018
