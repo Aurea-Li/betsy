@@ -26,7 +26,7 @@
   </div>
 
   <%= f.label :category %>
-  <%= f.select :category_id, Category.all.map{ |category| category.name } %>
+  <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
 
   <div class="form-group">
     <%= f.submit class: "btn btn-primary" %>
