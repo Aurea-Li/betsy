@@ -26,6 +26,11 @@ describe Product do
       expect( @p.order_items.first ).must_be_instance_of OrderItem
 
     end
+
+    it 'has some categories' do
+      expect( @p.categories).must_respond_to :each
+      expect( @p.categories.first ).must_be_instance_of Category
+    end
   end
 
   describe 'validations' do

@@ -11,6 +11,15 @@
       In Stock: <%= @product.stock %>
     <% end %>
   </li>
+  <li> Categories:
+
+    <ul>
+    <% @product.categories.each do |category| %>
+      <li> <%= category.name %> </li>
+    <% end %>
+
+    </ul>
+  </li>
   <li>Rating: <%= @product.rating %></li>
   <li>Merchant: <%= @product.merchant.username %></li>
 </ul>
