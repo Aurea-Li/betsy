@@ -12,7 +12,6 @@ product_one:
  active: true
  merchant: dogdays
  description: blah blah blah cats
- categories: [dog, cat]
 product_two:
  name: test product 2
  price: 10.99

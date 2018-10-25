@@ -69,8 +69,7 @@ describe ProductsController do
           price: 3.50,
           merchant: merchant,
           stock: 5,
-          active: true,
-          category: "cats"
+          active: true
          }
       }
 
@@ -82,7 +81,7 @@ describe ProductsController do
 
       must_respond_with :redirect
       must_redirect_to products_path
-    
+
       expect(Product.last.name).must_equal product_hash[:product][:name]
     end
   end
