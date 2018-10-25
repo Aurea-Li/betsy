@@ -1,7 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-
-two:
-  name: MyString
+dog:
+  name: dogs
+  products: [product_one, product_five, product_six]
+cat:
+  name: cats
+  product: product_three
+val:
+  name: silly val
+  products: [product_one, product_four, product_six]
