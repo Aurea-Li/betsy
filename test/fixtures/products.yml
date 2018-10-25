@@ -10,7 +10,6 @@ product_one:
  photo: http://placekitten.com/200/300
  stock: 10
  active: true
- category: American Bobtail
  merchant: dogdays
  description: blah blah blah cats
 product_two:
@@ -19,7 +18,6 @@ product_two:
  photo: http://placekitten.com/200/300
  stock: 15
  active: true
- category: American Bobtail
  merchant: palomino
  description: blah blah blah cats
 product_three:
@@ -28,7 +26,6 @@ product_three:
  photo: http://placekitten.com/200/300
  stock: 5
  active: true
- category: American Bobtail
  merchant: larry
  description: blah blah blah cats
 product_four:
@@ -37,7 +34,6 @@ product_four:
  photo: http://placekitten.com/200/300
  stock: 8
  active: true
- category: American Bobtail
  merchant: cuteclothes
  description: blah blah blah cats
 product_five:
@@ -46,7 +42,6 @@ product_five:
  photo: http://placekitten.com/200/300
  stock: 10
  active: true
- category: American Bobtail
  merchant: dogdays
  description: blah blah blah cats
 product_six:
