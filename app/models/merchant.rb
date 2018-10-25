@@ -15,20 +15,24 @@ class Merchant < ApplicationRecord
     return merchant
   end
 
+  def all_order_items_subtotal
+    return self.order_items.sum { |item| item.price }
+  end
+
   def paid_order_items
     return self.order_items.where(status: 'paid')
   end
 
-  def pending_order_items
-    return self.order_items.where(status: 'pending')
-  end
-
-  def cancelled_order_items
-    return self.order_items.where(status: 'cancelled')
+  def paid_orders_subtotal
+    return self.paid_order_items.sum { |item| item.price }
   end
 
   def complete_order_items
     return self.order_items.where(status: 'complete')
+  end
+
+  def completed_orders_subtotal
+    return self.complete_order_items.sum { |item| item.price }
   end
 
   def rating

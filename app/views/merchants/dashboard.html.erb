@@ -10,19 +10,11 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" id="pills-pendorder-tab" data-toggle="pill" href="#pills-pendorder" role="tab" aria-controls="pills-pendorder" aria-selected="false">Pending Orders</a>
-  </li>
-
-  <li class="nav-item">
     <a class="nav-link" id="pills-paidorder-tab" data-toggle="pill" href="#pills-paidorder" role="tab" aria-controls="pills-paidorder" aria-selected="false">Paid Orders</a>
   </li>
 
   <li class="nav-item">
     <a class="nav-link" id="pills-completeorder-tab" data-toggle="pill" href="#pills-completeorder" role="tab" aria-controls="pills-completeorder" aria-selected="false">Completed Orders</a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" id="pills-cancelorder-tab" data-toggle="pill" href="#pills-cancelorder" role="tab" aria-controls="pills-cancelorder" aria-selected="false">Cancelled Orders</a>
   </li>
 </ul>
 
@@ -33,17 +25,11 @@
   <div class="tab-pane fade" id="pills-allorder" role="tabpanel" aria-labelledby="pills-allorder-tab">
     <%= render partial: "orders" %>
   </div>
-  <div class="tab-pane fade" id="pills-pendorder" role="tabpanel" aria-labelledby="pills-pendorder-tab">
-    <%= render partial: "pending_orders" %>
-  </div>
   <div class="tab-pane fade" id="pills-paidorder" role="tabpanel" aria-labelledby="pills-paidorder-tab">
     <%= render partial: "paid_orders" %>
   </div>
   <div class="tab-pane fade" id="pills-completeorder" role="tabpanel" aria-labelledby="pills-completeorder-tab">
     <%= render partial: "complete_orders" %>
-  </div>
-  <div class="tab-pane fade" id="pills-cancelorder" role="tabpanel" aria-labelledby="pills-cancelorder-tab">
-    <%= render partial: "cancelled_orders" %>
   </div>
 </div>
 <% else %>

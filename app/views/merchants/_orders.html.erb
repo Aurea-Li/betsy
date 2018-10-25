@@ -1,5 +1,5 @@
 <div class="merchant-products">
-  <h3>All Order Items &nbsp Count: <%= "#{@merchant.order_items.size}" %></h3>
+  <h3>All Order Items &nbsp&nbsp Count: <%= "#{@merchant.order_items.size}" %> &nbsp&nbsp&nbsp Total Revenue for All Order Items: $<%= "#{@merchant.all_order_items_subtotal}" %></h3>
   <table class="table merchant-products-table">
     <thead>
       <tr>
@@ -7,7 +7,7 @@
         <th>Product ID</th>
         <th>Description</th>
         <th>Quantity</th>
-        <th>Price</th>
+        <th>Subtotal</th>
         <th>Status</th>
       </tr>
     </thead>
