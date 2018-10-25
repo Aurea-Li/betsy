@@ -5,6 +5,11 @@ class OrdersController < ApplicationController
   def index
     @orders = Order.all
 
+    if params[:search]
+      @orders = Order.search(params[:search])
+    else
+      @orders = Order.all
+    end
   end
 
 
@@ -30,7 +35,6 @@ class OrdersController < ApplicationController
   end
 
   def update
-
     @order.update_attributes(order_params)
     @order.paid
 

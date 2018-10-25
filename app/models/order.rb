@@ -35,4 +35,10 @@ class Order < ApplicationRecord
       item.status = 'paid'
     end
   end
+
+
+  def self.search(search)
+    where("id = ?", "#{search}")
+  end
+
 end
