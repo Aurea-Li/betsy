@@ -1,6 +1,6 @@
 class OrderItemsController < ApplicationController
 
-  before_action :find_order_item, only: [:show, :edit, :update, :destroy]
+  before_action :find_order_item, only: [:show, :edit, :update, :destroy, :status]
 
   def index
     @order_items = OrderItem.where(status: 'pending', order_id: session[:order_id])
@@ -112,6 +112,17 @@ class OrderItemsController < ApplicationController
     flash[:status] = :success
     flash[:result_text] = "#{@order_item.product.name} successfully removed from cart."
     redirect_to order_items_path
+  end
+
+  def status
+    if @order_item.update(status: 'complete')
+      flash[:status] = :success
+      flash[:result_text] = "Order item number #{@order_item.id} has been completed."
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "There was a problem. Order #{@order_item.id} has not been updated."
+    end
+    redirect_to dashboard_path(session[:user_id])
   end
 
   private

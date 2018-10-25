@@ -17,4 +17,6 @@ Rails.application.routes.draw do
 
   get '/merchants/:id/dashboard', to: 'merchants#dashboard', as: 'dashboard'
 
+  post '/order_items/:id/status', to: 'order_items#status', as: 'order_items_status'
+
 end
