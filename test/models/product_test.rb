@@ -76,26 +76,6 @@ describe Product do
 
     end
 
-    it 'is invalid without an active field' do
-
-      @p.active = nil
-
-      expect( @p ).wont_be :valid?
-    end
-
-    it 'is invalid without an active field' do
-      @p.active = nil
-
-      expect( @p ).wont_be :valid?
-    end
-
-    it 'is invalid without a category' do
-
-      @p.category = nil
-
-      expect( @p ).wont_be :valid?
-
-    end
   end
 
   describe 'rating' do

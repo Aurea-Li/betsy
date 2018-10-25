@@ -1,0 +1,8 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+dog:
+  name: dogs
+cat:
+  name: cats
+val:
+  name: silly val
