@@ -6,7 +6,7 @@
     <li> <strong> Email Address: </strong> <%= @order.email %> </li>
     <li> <strong> Address: </strong> <%= @order.address %> </li>
     <li> <strong> Credit Card Number: </strong> XXXX-XXXX-XXXX-<%= @order.CC_num_last_four %> </li>
-    <li> <strong> Date: </strong> <%= @order.created_at %> </li>
+    <li> <strong> Date: </strong> <%= render_date(@order.created_at) %> </li>
     <li>
       <strong>Order ID: </strong> <%= @order.id %>
     </li>
