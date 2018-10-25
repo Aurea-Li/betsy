@@ -108,7 +108,12 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
+    product = Product.find_by(id: @order_item.product)
+    stock = product.stock
+    quantity = @order_item.quantity
+    new_stock = quantity + stock
     @order_item.destroy
+    product.update(stock: new_stock)
     flash[:status] = :success
     flash[:result_text] = "#{@order_item.product.name} successfully removed from cart."
     redirect_to order_items_path
