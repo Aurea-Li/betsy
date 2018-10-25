@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
     else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Invalid category name. Please try again."
-      render :new
+      render :new, status: :bad_request
     end
   end
 
