@@ -2,10 +2,7 @@
 
 dog:
   name: dogs
-  products: [product_one, product_five, product_six]
 cat:
   name: cats
-  product: product_three
 val:
   name: silly val
-  products: [product_one, product_four, product_six]

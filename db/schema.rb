@@ -22,10 +22,10 @@ ActiveRecord::Schema.define(version: 2018_10_24_224809) do
   end
 
   create_table "categories_products", force: :cascade do |t|
-    t.bigint "book_id"
-    t.bigint "genre_id"
-    t.index ["book_id"], name: "index_categories_products_on_book_id"
-    t.index ["genre_id"], name: "index_categories_products_on_genre_id"
+    t.bigint "category_id"
+    t.bigint "product_id"
+    t.index ["category_id"], name: "index_categories_products_on_category_id"
+    t.index ["product_id"], name: "index_categories_products_on_product_id"
   end
 
   create_table "merchants", force: :cascade do |t|
