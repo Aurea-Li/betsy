@@ -2,138 +2,150 @@ require "test_helper"
 require 'pry'
 
 describe ProductsController do
-  # it "must be a real test" do
-  #   flunk "Need real tests"
-  # end
-  describe "index" do
-    it "succeeds when there are no products" do
-      get products_path
-
-      must_respond_with :success
-    end
-
-    it "succeeds when there are products" do
-    end
-  end
-
-  describe "show" do
-    it "should respond with success for showing an existing product" do
-
-      product = products.first
-      id = product.id
-
-      get product_path(id)
-
-      must_respond_with :success
-    end
-
-    it "should respond with not found for showing a non-existing product" do
-
-      product = products.first
-      id = product.id
-
-      get product_path(id)
-      must_respond_with :success
-      # Act
-      product.delete
-
-      get product_path(id)
-
-      # Assert
-      must_respond_with :missing
-    end
-
-  end
-
-  describe "new" do
-    it "successfully retrieves new page" do
-
-    get new_product_path
-
-    must_respond_with :success
-
-    end
-  end
-
-  describe "create" do
-    it "creates new product when logged in and given valid data" do
-      merchant = merchants(:dogdays)
-
-      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_merchant_hash(merchant))
-
-      get auth_callback_path(:github)
-
-      product_hash = {
-        product: {
-          name: "Test product",
-          price: 3.50,
-          merchant: merchant,
-          stock: 5,
-          active: true
-         }
+  let (:product_data) {
+    {
+      product: {
+        name: "Test product",
+        price: 3.50,
+        merchant: merchants(:dogdays),
+        stock: 5,
+        active: true
       }
+    }
+  }
 
-      test_product = Product.new(product_hash[:product])
-      test_product.must_be :valid?, "Product data was invalid. Please come fix this test."
+  let (:product) {
+    products(:product_one)
+  }
 
-      expect {
-        post products_path, params: product_hash }.must_change 'Product.count', 1
+  describe "guest user" do
+    describe "index" do
+      it "successfully gets index" do
+        get products_path
 
-      must_respond_with :redirect
-      must_redirect_to products_path
+        must_respond_with :success
+      end
+    end
 
-      expect(Product.last.name).must_equal product_hash[:product][:name]
+    describe "show" do
+      it "should respond with success for showing an existing product" do
+
+        get product_path(product.id)
+
+        must_respond_with :success
+      end
+
+      it "should respond with not found for showing a non-existing product" do
+
+        product.destroy
+
+        expect{
+          get product_path(product.id)
+        }.must_raise(ActionController::RoutingError)
+
+      end
+    end
+
+    describe "create" do
+      it 'should not allow guest user to create a new product' do
+        test_product = Product.new(product_data[:product])
+        test_product.must_be :valid?, "Product data was invalid. Please come fix this test."
+
+        expect {
+          post products_path, params: product_data
+        }.wont_change('Product.count')
+
+        must_respond_with :bad_request
+      end
+    end
+
+    describe "update" do
+      it "should not allow guest user to update a new product" do
+
+      end
     end
   end
 
-  describe "edit" do
-    it "responds with success for an existing product" do
-      get edit_product_path(Product.first)
-
-      must_respond_with :success
+  describe "merchant user" do
+    before do
+      perform_login(merchants(:dogdays))
     end
 
-    it "responds with not_found for a product that doesn't exist" do
-      product = Product.first.destroy
+    describe "new" do
+      it "successfully retrieves new page" do
 
-      get edit_product_path(product)
+        get new_product_path
 
-      must_respond_with :not_found
-    end
-  end
+        must_respond_with :success
 
-  describe "update" do
-    it "should show success when showing an existing product" do
-
-      product = products.first
-
-      get product_path(product.id)
-
-      must_respond_with :success
+      end
     end
 
-    it "should return error message if product doesn't exist" do
+    describe "create" do
+      it "creates new product when logged in and given valid data" do
 
-      product = products.first
-      id = product.id
-      product.destroy
 
-      get product_path(id)
+        test_product = Product.new(product_data[:product])
+        test_product.must_be :valid?, "Product data was invalid. Please come fix this test."
 
-      must_respond_with :not_found
+        expect {
+          post products_path, params: product_data
+        }.must_change('Product.count', 1)
+
+        must_redirect_to products_path
+
+        expect(Product.last.name).must_equal product_data[:product][:name]
+      end
     end
-  end
 
-  describe "destroy" do
-    it "can destroy an existing product" do
-      product = products.first
+    describe "edit" do
+      it "responds with success for an existing product" do
+        get edit_product_path(product)
 
-      expect {
-        delete product_path(product)
-      }.must_change('Product.count', -1)
+        must_respond_with :success
+      end
 
-      must_respond_with :redirect
-      must_redirect_to products_path
+      it "responds with not_found for a product that doesn't exist" do
+        product.destroy
+
+        expect{
+          get edit_product_path(product)
+
+        }.must_raise(ActionController::RoutingError)
+
+      end
+    end
+
+    describe "update" do
+      it "should show success when showing an existing product" do
+
+        get product_path(product.id)
+
+        must_respond_with :success
+      end
+
+      it "should return error message if product doesn't exist" do
+
+        product.destroy
+
+        expect{
+          get product_path(product.id)
+        }.must_raise(ActionController::RoutingError)
+
+      end
+    end
+
+    describe "destroy" do
+      it "can destroy an existing product" do
+
+
+        expect {
+          delete product_path(product)
+        }.must_change('Product.count', -1)
+
+
+        must_redirect_to products_path
+      end
     end
   end
 end
