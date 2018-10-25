@@ -75,7 +75,7 @@ describe OrderItemsController do
 
         expect {
           post order_items_path, params: order_item_data
-        }.wont_change('Order.count', +1)
+        }.wont_change('Order.count')
 
         expect(OrderItem.count).must_equal before + 1
 
@@ -88,6 +88,32 @@ describe OrderItemsController do
 
       it "shows an error if the quantity is greater than the product's stock" do
 
+        order_item_data = {
+          order_item: {
+            quantity: 20,
+            status: 'pending',
+            product_id: products(:product_two).id,
+            order_id: orders(:merchant).id
+          }
+        }
+
+        test_item = OrderItem.new(order_item_data[:order_item])
+        before_stock = test_item.product.stock
+        # before_order = test_item.quantity
+        test_item.must_be :valid?, "OrderItem data was invalid. Please fix this test."
+
+        post order_items_path(order_item_data)
+
+        expect {
+          post order_items_path, params: order_item_data
+        }.wont_change('Order.count')
+
+        expect(test_item.product.stock).must_equal before_stock
+        order_item = OrderItem.find_by(
+          product_id: products(:product_two).id,
+          order_id: orders(:merchant).id
+        )
+        expect(order_item.quantity).must_equal 15
       end
     end
   end
