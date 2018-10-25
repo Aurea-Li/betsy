@@ -8,6 +8,7 @@
         <th>Description</th>
         <th>Quantity</th>
         <th>Subtotal</th>
+        <th>Ordered On</th>
         <th>Status</th>
         <th>      </th>
       </tr>
@@ -20,6 +21,7 @@
             <td><%= item.product.description %></td>
             <td><%= item.quantity %></td>
             <td><%= item.price %></td>
+            <td><%= render_date(item.created_at) %></td>
             <td><%= item.status %></td>
             <td><%= link_to "Fulfill order", order_items_status_path(item.id), method: :post, class: 'btn btn-primary' %></td>
           </tr>

@@ -8,6 +8,7 @@
         <th>Description</th>
         <th>Quantity</th>
         <th>Subtotal</th>
+        <th>Ordered On</th>
         <th>Status</th>
       </tr>
     </thead>
@@ -19,6 +20,7 @@
           <td><%= item.product.description %></td>
           <td><%= item.quantity %></td>
           <td><%= item.price %></td>
+          <td><%= render_date(item.created_at) %></td>
           <td><%= item.status %></td>
         </tr>
       <% end %>
