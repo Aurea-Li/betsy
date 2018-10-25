@@ -29,3 +29,8 @@ five:
   status: pending
   product: product_one
   order: bob
+six:
+  quantity: 2
+  status: pending
+  product: product_one
+  order: merchant

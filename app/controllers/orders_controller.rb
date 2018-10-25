@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
       session[:order_id] = nil
 
       flash[:status] = :success
-      flash[:result_text] = "Order successfully finalized."
+      flash[:result_text] = "Order successfully finalized. Please save your order number - ##{@order.id}."
       redirect_to order_path(@order.id)
     else
       flash.now[:status] = :failure
@@ -45,6 +45,9 @@ class OrdersController < ApplicationController
     flash[:status] = :success
     flash[:result_text] = "Your order has been cancelled."
     redirect_to root_path
+  end
+
+  def customerinfo
   end
 
   private

@@ -10,7 +10,7 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than: 0 }
   validates :stock, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
-  # AYL: do we need a rating attribute if we define it in a function?
+
   def rating
     unless self.reviews.empty?
       return 1.0 * self.reviews.sum{ |review| review.rating } / self.reviews.length

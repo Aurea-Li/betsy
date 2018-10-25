@@ -1,3 +1,4 @@
+require 'pry'
 class OrderItemsController < ApplicationController
 
   before_action :find_order_item, only: [:show, :edit, :update, :destroy, :status]
@@ -8,8 +9,8 @@ class OrderItemsController < ApplicationController
 
   # order item is created when added to cart
   def create
-
     @order_item = OrderItem.new(order_item_params)
+
     unless session[:order_id]
       order = Order.create(status: 'pending')
       session[:order_id] = order.id
@@ -18,52 +19,64 @@ class OrderItemsController < ApplicationController
     order = Order.find_by(id: session[:order_id])
 
     if order
-
-      duplicate_item = OrderItem.find_by(product_id: @order_item.product_id, status: 'pending')
+      # Search for existing OrderItem in cart to update
+      duplicate_item = OrderItem.find_by(product_id: @order_item.product_id, order: order, status: 'pending')
 
       if duplicate_item
 
-        remaining_stock = duplicate_item.product.stock - order_item_params[:quantity].to_i
+        quantity = @order_item.quantity + duplicate_item.quantity
 
-        if duplicate_item.product.update(stock: remaining_stock)
+        if quantity < duplicate_item.product.stock
 
-          quantity = duplicate_item.quantity + @order_item.quantity
           duplicate_item.update(quantity: quantity)
+          @order_item.reduce_stock(duplicate_item)
+        # end
+        # remaining_stock = duplicate_item.product.stock - order_item_params[:quantity].to_i
+        #
+        # if duplicate_item.product.update(stock: remaining_stock)
+        #
+        #   quantity = duplicate_item.quantity + @order_item.quantity
+        #   duplicate_item.update(quantity: quantity)
 
           flash[:status] = :success
-          flash[:result_text] = "Quantity of #{@order_item.product.name} is updated."
+          flash[:result_text] = "Cart successfully updated - added #{@order_item.quantity} of #{@order_item.product.name}."
+          # end
         else
+
           flash[:status] = :failure
           flash[:result_text] = "Quantity requested exceeds stock. Please try again."
         end
+    # end
+    else
+
+      @order_item.order_id = session[:order_id]
+        # order item is created when added to cart
+      if @order_item.save
+
+        @order_item.reduce_stock
+          # product = @order_item.product
+          # remaining_stock = product.stock - @order_item.quantity
+          #
+          # if product.update(stock: remaining_stock)
+
+        flash[:status] = :success
+        flash[:result_text] = "Item successfully added to cart. "
+          # else
+          #   flash[:status] = :failure
+          #   flash[:result_text] = "Quantity requested exceeds stock. Please try again."
+          # end
+
       else
 
-        @order_item.order_id = session[:order_id]
-        # order item is created when added to cart
-        if @order_item.save
-
-          product = @order_item.product
-          remaining_stock = product.stock - @order_item.quantity
-
-          if product.update(stock: remaining_stock)
-
-            flash[:status] = :success
-            flash[:result_text] = "Item successfully added to cart. "
-          else
-            flash[:status] = :failure
-            flash[:result_text] = "Quantity requested exceeds stock. Please try again."
-          end
-
-        else
-          flash[:status] = :failure
-          flash[:result_text] = "Error adding item to cart"
-        end
+        flash[:status] = :failure
+        flash[:result_text] = "Error adding item to cart"
       end
-
-    else
-      flash[:status] = :failure
-      flash[:result_text] = "Order for cart is invalid. Please restart browser and try again."
-      session[:order_id] = nil
+    end
+    #
+    # else
+    #   flash[:status] = :failure
+    #   flash[:result_text] = "Order for cart is invalid. Please restart browser and try again."
+    #   session[:order_id] = nil
     end
 
     redirect_back fallback_location: products_path
@@ -105,6 +118,7 @@ class OrderItemsController < ApplicationController
 
   def destroy
     @order_item.destroy
+    @order_item.restock_product
     flash[:status] = :success
     flash[:result_text] = "#{@order_item.product.name} successfully removed from cart."
     redirect_to order_items_path
