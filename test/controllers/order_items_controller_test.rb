@@ -5,7 +5,7 @@ describe OrderItemsController do
   describe "guest user" do
     describe "index" do
 
-      # TODO: AYL: do we need more tests? if cart is empty, etc.?
+  
       it "can access cart" do
 
         get order_items_path
@@ -14,13 +14,6 @@ describe OrderItemsController do
       end
     end
 
-    describe "new" do
-      it "can get the new page" do
-        get new_order_item_path
-
-        must_respond_with :success
-      end
-    end
 
     describe 'create' do
       it "creates new order for first item added to cart" do

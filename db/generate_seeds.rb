@@ -18,18 +18,17 @@ end
 
 # Product seed script
 CSV.open('db/product_seeds.csv', "w", :write_headers=> true,
-  :headers => ["name", "price", "photo", "stock", "active", "rating", "description"]) do |csv|
+  :headers => ["name", "price", "photo", "stock", "active", "description"]) do |csv|
 
   50.times do
     name = Faker::Cat.name
     price = Faker::Commerce.price
     photo = 'http://placekitten.com/200/300'
     stock = Faker::Number.number(2)
-    active = Faker::Boolean.boolean(0.9)
-    rating = Faker::Number.between(1, 5)
+    active = Faker::Boolean.boolean(0.8)
     description = Faker::Lorem.sentence
 
-    csv << [name, price, photo, stock, active, rating, description]
+    csv << [name, price, photo, stock, active, description]
   end
 end
 
