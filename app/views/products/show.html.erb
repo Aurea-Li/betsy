@@ -48,13 +48,14 @@
 
   <%= image_tag @product.photo, alt: @product.name, class: "product-show-photo"%>
 
-  <section class ="product-review">
+  <section class ="product-review-section">
     <% if @reviews.empty? %>
-      <h3> No Reviews Available. </h3>
+      <h3> No Reviews Available </h3>
     <% else %>
+      <h3>Reviews</h3>
     <ul>
       <% @reviews.each do |review| %>
-        <li>
+        <li class = "product-review">
           <ul>
             <li> <strong> Name: </strong> <%= review.name %> </li>
             <li> <strong> Rating: </strong> <%= review.rating %> </li>

@@ -92,7 +92,7 @@ describe Product do
     it 'returns nil for a product with no reviews' do
       no_reviews = products(:product_two)
 
-      expect( no_reviews.rating ).must_be_nil
+      expect( no_reviews.rating ).must_equal "No ratings"
     end
   end
 end
