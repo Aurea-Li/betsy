@@ -87,3 +87,27 @@ a, em, span {
 .product-gallery img {
   height: 250px;
 }
+
+.product-show-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 3fr 1fr;
+  margin: 25px;
+}
+
+.product-show-photo {
+  width: 250px;
+  grid-column: 2;
+}
+
+.product-show-info {
+  grid-row: 1;
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+}
+
+.product-review {
+  grid-row: 2;
+}
