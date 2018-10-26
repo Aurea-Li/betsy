@@ -34,7 +34,7 @@
         <td> <%= item.product.name %> </td>
         <td> <%= item.quantity %> </td>
         <td> <%= item.status %> </td>
-        <td> <%= item.price %> </td>
+        <td> <%= number_to_currency(item.price) %> </td>
       </tr>
     <% end %>
   <% end %>

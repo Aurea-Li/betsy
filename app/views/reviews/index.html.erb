@@ -2,7 +2,7 @@
 
 <ul>
   <li>Name: <%= @product.name %></li>
-  <li>Price: <%= @product.price %></li>
+  <li>Price: <%= number_to_currency(@product.price) %></li>
   <li><%= image_tag @product.photo, alt: @product.name %> </li>
   <li>
     <% if @product.stock == 0 %>

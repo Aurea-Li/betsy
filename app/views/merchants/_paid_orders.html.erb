@@ -20,7 +20,7 @@
             <td><%= link_to item.product_id, product_path(item.product_id) %></td>
             <td><%= item.product.description %></td>
             <td><%= item.quantity %></td>
-            <td><%= item.price %></td>
+            <td><%= number_to_currency(item.price) %></td>
             <td><%= render_date(item.created_at) %></td>
             <td><%= item.status %></td>
             <td><%= link_to "Fulfill order", order_items_status_path(item.id), method: :post, class: 'btn btn-primary' %></td>
