@@ -50,8 +50,9 @@
 
   <section class ="product-review">
     <% if @reviews.empty? %>
-      <h3> No Reviews Available. </h3>
+      <h3> No Reviews Available </h3>
     <% else %>
+      <h3>Reviews</h3>
     <ul>
       <% @reviews.each do |review| %>
         <li>
