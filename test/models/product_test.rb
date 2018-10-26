@@ -26,6 +26,11 @@ describe Product do
       expect( @p.order_items.first ).must_be_instance_of OrderItem
 
     end
+
+    it 'has some categories' do
+      expect( @p.categories).must_respond_to :each
+      expect( @p.categories.first ).must_be_instance_of Category
+    end
   end
 
   describe 'validations' do
@@ -76,26 +81,6 @@ describe Product do
 
     end
 
-    it 'is invalid without an active field' do
-
-      @p.active = nil
-
-      expect( @p ).wont_be :valid?
-    end
-
-    it 'is invalid without an active field' do
-      @p.active = nil
-
-      expect( @p ).wont_be :valid?
-    end
-
-    it 'is invalid without a category' do
-
-      @p.category = nil
-
-      expect( @p ).wont_be :valid?
-
-    end
   end
 
   describe 'rating' do

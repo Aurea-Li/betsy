@@ -1,6 +1,4 @@
 require "test_helper"
-require 'pry'
-
 describe MerchantsHelper do
 
 describe "render_date" do

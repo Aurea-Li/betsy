@@ -27,12 +27,12 @@ class ProductsController < ApplicationController
       else
         flash.now[:status] = :failure
         flash.now[:result_text] = "Product info invalid. Please try again."
-        render :new
+        render :new, status: :bad_request
       end
-    else # Not needed?
+    else
       flash.now[:status] = :failure
       flash.now[:result_text] = "Only logged in merchants can create products"
-      render :new
+      render :new, status: :bad_request
     end
   end
 
@@ -67,12 +67,21 @@ class ProductsController < ApplicationController
 private
 
   def product_params
-    params.require(:product).permit(:name, :price, :description, :photo, :stock, :active, :category, :rating, :merchant_id)
+    params.require(:product).permit(
+      :name,
+      :price,
+      :description,
+      :photo,
+      :stock,
+      :active,
+      :rating,
+      :merchant_id,
+      category_ids: [])
   end
 
   def find_product
     @product = Product.find_by(id: params[:id])
-    head :not_found unless @product
+    render_404 unless @product
   end
 
 end

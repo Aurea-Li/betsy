@@ -17,7 +17,7 @@ describe OrdersController do
         address: '123 Street Dr. Seattle, WA',
         cc_num: 1123384229389283,
         cc_cvv: 280,
-        cc_expiration: 01-9-2020
+        cc_expiration: '2020-09-01'
       }
     }
   }
@@ -42,16 +42,6 @@ describe OrdersController do
     end
   end
 
-
-  #VNG - Do we need the new action?
-  # describe "new" do
-  #   it "can get the new page" do
-  #     get new_order_path
-  #
-  #     must_respond_with :success
-  #   end
-  # end
-
   describe "create" do
     it "can create an order" do
       test_order = Order.new(order_data[:order])
@@ -62,6 +52,7 @@ describe OrdersController do
       }.must_change('Order.count', +1 )
 
       must_redirect_to order_path(Order.last)
+      must_respond_with :redirect
     end
   end
 
@@ -75,9 +66,10 @@ describe OrdersController do
     it "renders 404 not_found for a bogus order ID" do
       existing_order.destroy
 
+    expect{
       get edit_order_path(existing_order.id)
+    }.must_raise(ActionController::RoutingError)
 
-      must_respond_with :not_found
     end
   end
 
@@ -98,16 +90,13 @@ describe OrdersController do
       must_redirect_to order_path(existing_order.id)
     end
 
-    it "renders bad_request for bogus data" do
-
-    end
-
     it "renders 404 not_found for a bogus order ID" do
       existing_order.destroy
 
+    expect{
       patch order_path(existing_order.id), params: order_data
+    }.must_raise(ActionController::RoutingError)
 
-      must_respond_with :not_found
     end
   end
 
@@ -118,8 +107,7 @@ describe OrdersController do
       }.must_change('Order.count', -1)
 
       must_respond_with :redirect
-      # must_redirect_to orders_path
-      #VNG- I'm not sure why redirecting to orders_path (line above) gives test errors?
+      must_redirect_to root_path
     end
 
     it "renders 404 not_found and does not update the DB for a bogus order ID" do
@@ -127,9 +115,7 @@ describe OrdersController do
 
       expect{
         delete order_path(existing_order.id)
-      }.wont_change('Order.count')
-
-      must_respond_with :not_found
+      }.must_raise(ActionController::RoutingError)
 
     end
   end

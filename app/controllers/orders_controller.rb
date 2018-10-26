@@ -1,32 +1,20 @@
 class OrdersController < ApplicationController
 
-  before_action :find_order, except: [:index, :new, :create]
+  before_action :find_order, except: [:index, :create]
 
   def index
     @orders = Order.all
-
-    if params[:search]
-      @orders = Order.search(params[:search])
-    else
-      @orders = Order.all
-    end
   end
 
-
-  def new
-    @order = Order.new
-  end
-
+  # is this necessary?
   def create
     @order = Order.new(order_params)
-
     if @order.save
       redirect_to order_path(@order.id)
     else
       render :edit, status: :bad_request
     end
   end
-
 
   def show
   end
@@ -35,7 +23,8 @@ class OrdersController < ApplicationController
   end
 
   def update
-    @order.update_attributes(order_params)
+
+    @order.update(order_params)
     @order.set_paid
 
     if @order.save

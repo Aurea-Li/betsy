@@ -1,17 +1,9 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
 product_one:
  name: test product 1
  price: 1.99
  photo: http://placekitten.com/200/300
  stock: 10
  active: true
- category: American Bobtail
- rating: 5
  merchant: dogdays
  description: blah blah blah cats
 product_two:
@@ -20,8 +12,6 @@ product_two:
  photo: http://placekitten.com/200/300
  stock: 15
  active: true
- category: American Bobtail
- rating: 4
  merchant: palomino
  description: blah blah blah cats
 product_three:
@@ -30,8 +20,6 @@ product_three:
  photo: http://placekitten.com/200/300
  stock: 5
  active: true
- category: American Bobtail
- rating: 3
  merchant: larry
  description: blah blah blah cats
 product_four:
@@ -40,7 +28,19 @@ product_four:
  photo: http://placekitten.com/200/300
  stock: 8
  active: true
- category: American Bobtail
- rating: 5
  merchant: cuteclothes
  description: blah blah blah cats
+product_five:
+ name: test product 5
+ price: 11.99
+ photo: http://placekitten.com/200/300
+ stock: 10
+ active: true
+ merchant: dogdays
+ description: blah blah blah cats
+product_six:
+  name: test product 6
+  price: 11.99
+  stock: 10
+  active: true
+  merchant: dogdays

@@ -1,14 +1,9 @@
-require 'pry'
 class OrderItemsController < ApplicationController
 
   before_action :find_order_item, only: [:show, :edit, :update, :destroy, :status]
 
   def index
     @order_items = OrderItem.where(status: 'pending', order_id: session[:order_id])
-  end
-
-  def new
-    @order_item = OrderItem.new
   end
 
   # order item is created when added to cart
@@ -146,6 +141,6 @@ class OrderItemsController < ApplicationController
 
   def find_order_item
     @order_item = OrderItem.find_by(id: params[:id])
-    head :not_found unless @order_item
+    render_404 unless @order_item
   end
 end
