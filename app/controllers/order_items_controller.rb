@@ -119,7 +119,7 @@ class OrderItemsController < ApplicationController
   end
 
   def status
-    if @order_item.status == 'pending' and @order_item.update(status: 'complete')
+    if @order_item.update(status: 'complete')
       flash[:status] = :success
       flash[:result_text] = "Order item number #{@order_item.id} has been completed."
     else
