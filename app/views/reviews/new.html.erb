@@ -1,14 +1,14 @@
-<section>
+<section class = "review-form form-group">
   <%= form_with model: [@product, @review] do |f| %>
     <h3> Add a review for <%=@product.name%></h3>
-    <p><%= f.label :name %>
-    <%= f.text_field :name %></p>
+    <p><%= f.label :name %>:</p>
+    <p><%= f.text_field :name, class: "form-control" %></p>
 
-    <p><%= f.label :rating %>
-    <%= f.select :rating, Review::RATINGS %></p>
+    <p><%= f.label :rating %>:</p>
+    <p><%= f.select :rating, Review::RATINGS %></p>
 
-    <p><%= f.label :description %>
-    <%= f.text_area :description %></p>
+    <p><%= f.label :description %>:</p>
+    <p><%= f.text_area :description, class: "form-control" %></p>
 
     <%= f.hidden_field :product_id, value: @product.id %>
 
