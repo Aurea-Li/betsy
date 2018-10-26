@@ -72,8 +72,11 @@ describe MerchantsController do
     end
 
     it "should respond with not found when trying to link to a non-existant merchant" do
-      get dashboard_path(bad_merchant_id)
-      must_respond_with :not_found
+      merchant.destroy
+      bad_merchant_id = merchant.id
+      expect {
+        get dashboard_path(bad_merchant_id)
+      }.must_raise(ActionController::RoutingError)
     end
   end
 
