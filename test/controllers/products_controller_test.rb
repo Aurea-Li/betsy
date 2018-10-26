@@ -57,10 +57,6 @@ describe ProductsController do
       end
     end
 
-    describe "update" do
-      it "should not allow guest user to update a new product" do
-
-      end
     end
   end
 

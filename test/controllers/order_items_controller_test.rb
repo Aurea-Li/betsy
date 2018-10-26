@@ -4,7 +4,7 @@ describe OrderItemsController do
   let (:order_item_data) {
     {
       order_item: {
-        quantity: 1,
+        quantity: 2,
         status: 'pending',
         product_id: Product.first.id
       }
@@ -13,6 +13,10 @@ describe OrderItemsController do
 
   let (:prod) {
     Product.find(order_item_data[:order_item][:product_id])
+  }
+
+  let (:existing_item) {
+    order_items(:six)
   }
 
   describe "guest user" do
@@ -134,6 +138,109 @@ describe OrderItemsController do
     end
 
     describe "update" do
+
+      it 'successfully updates order if decreasing quantity, adds back into stock' do
+
+        order_item_data[:order_item][:quantity] -= 1
+
+        initial_stock = existing_item.product.stock
+
+        expect{
+          patch order_item_path(existing_item.id), params: order_item_data
+        }.wont_change('OrderItem.count')
+
+        expect(flash[:status]).must_equal :success
+
+        existing_item.reload
+        expect(existing_item.product.stock).must_equal(initial_stock + 1)
+
+      end
+
+      it 'does not update order if input is invalid' do
+
+        order_item_data[:order_item][:quantity] = -1
+
+
+        patch order_item_path(existing_item.id), params: order_item_data
+
+        expect(flash[:status]).must_equal :failure
+
+      end
+
+      it "does not update order if quantity exceeds stock" do
+        remaining_stock = existing_item.product.stock
+
+        order_item_data[:order_item][:quantity] += (remaining_stock + 1)
+
+        patch order_item_path(existing_item.id), params: order_item_data
+
+        expect(flash[:status]).must_equal :failure
+
+      end
+    end
+
+    describe "destroy" do
+
+      it "successfully destroys existing order item, restocks product" do
+
+
+        quantity = existing_item.quantity
+        stock = existing_item.product.stock
+        prod = existing_item.product
+
+        expect{
+          delete order_item_path(existing_item.id)
+        }.must_change('OrderItem.count', -1)
+
+        prod.reload
+
+        must_redirect_to order_items_path
+        expect(flash[:status]).must_equal :success
+        expect(prod.stock).must_equal(quantity + stock )
+
+
+      end
+
+      it "raise routingerror if order item id is invalid" do
+
+        existing_item.destroy
+
+        expect{
+          delete order_item_path(existing_item.id)
+        }.must_raise(ActionController::RoutingError)
+
+      end
+    end
+
+    describe "status" do
+
+      before do
+        perform_login(merchants(:dogdays))
+      end
+
+      it "successfully updates order item status if pending" do
+
+        expect(existing_item.status).must_equal 'pending'
+
+        post order_items_status_path(existing_item.id)
+
+        existing_item.reload
+
+        expect(existing_item.status).must_equal 'complete'
+        expect(flash[:status]).must_equal :success
+        must_redirect_to dashboard_path(merchants(:dogdays).id)
+      end
+
+      it 'does not update order if status is not pending' do
+
+        existing_item.update(status: 'complete')
+        expect(existing_item.status).wont_equal 'pending'
+
+        post order_items_status_path(existing_item.id)
+
+        expect(flash[:status]).must_equal :failure
+        must_redirect_to dashboard_path(merchants(:dogdays).id)
+      end
 
     end
 

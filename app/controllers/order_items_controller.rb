@@ -82,6 +82,7 @@ class OrderItemsController < ApplicationController
   end
 
   def update
+
     old_quantity = @order_item.quantity
     new_quantity = order_item_params[:quantity].to_i
 
@@ -110,15 +111,15 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
-    @order_item.destroy
     @order_item.restock_product
+    @order_item.destroy
     flash[:status] = :success
     flash[:result_text] = "#{@order_item.product.name} successfully removed from cart."
     redirect_to order_items_path
   end
 
   def status
-    if @order_item.update(status: 'complete')
+    if @order_item.status == 'pending' and @order_item.update(status: 'complete')
       flash[:status] = :success
       flash[:result_text] = "Order item number #{@order_item.id} has been completed."
     else
