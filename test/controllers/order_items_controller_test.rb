@@ -218,9 +218,8 @@ describe OrderItemsController do
         perform_login(merchants(:dogdays))
       end
 
-      it "successfully updates order item status if pending" do
+      it "successfully updates order item status" do
 
-        expect(existing_item.status).must_equal 'pending'
 
         post order_items_status_path(existing_item.id)
 
@@ -231,16 +230,6 @@ describe OrderItemsController do
         must_redirect_to dashboard_path(merchants(:dogdays).id)
       end
 
-      it 'does not update order if status is not pending' do
-
-        existing_item.update(status: 'complete')
-        expect(existing_item.status).wont_equal 'pending'
-
-        post order_items_status_path(existing_item.id)
-
-        expect(flash[:status]).must_equal :failure
-        must_redirect_to dashboard_path(merchants(:dogdays).id)
-      end
 
     end
 
