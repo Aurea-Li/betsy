@@ -70,4 +70,15 @@ describe OrderItem do
     end
   end
 
+  describe 'restock_product' do
+    it 'increases stock of product and returns new stock value' do
+      o = order_items(:one)
+      stock = o.product.stock
+      quantity = o.quantity
+
+      expect( o.restock_product ).must_equal stock + quantity
+    end
+
+  end
+
 end
