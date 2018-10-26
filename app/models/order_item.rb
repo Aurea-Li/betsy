@@ -21,7 +21,8 @@ class OrderItem < ApplicationRecord
 
   def reduce_stock(duplicate = self)
     remaining_stock = duplicate.product.stock - self.quantity
-    return duplicate.product.update(stock: remaining_stock)
+    duplicate.product.update(stock: remaining_stock)
+    return remaining_stock
   end
 
 end
