@@ -56,90 +56,88 @@ describe ProductsController do
         must_respond_with :bad_request
       end
     end
+  end
+end
+
+describe "merchant user" do
+  before do
+    perform_login(merchants(:dogdays))
+  end
+
+  describe "new" do
+    it "successfully retrieves new page" do
+
+      get new_product_path
+
+      must_respond_with :success
 
     end
   end
 
-  describe "merchant user" do
-    before do
-      perform_login(merchants(:dogdays))
+  describe "create" do
+    it "creates new product when logged in and given valid data" do
+
+
+      test_product = Product.new(product_data[:product])
+      test_product.must_be :valid?, "Product data was invalid. Please come fix this test."
+
+      expect {
+        post products_path, params: product_data
+      }.must_change('Product.count', 1)
+
+      must_redirect_to products_path
+
+      expect(Product.last.name).must_equal product_data[:product][:name]
+    end
+  end
+
+  describe "edit" do
+    it "responds with success for an existing product" do
+      get edit_product_path(product)
+
+      must_respond_with :success
     end
 
-    describe "new" do
-      it "successfully retrieves new page" do
+    it "responds with not_found for a product that doesn't exist" do
+      product.destroy
 
-        get new_product_path
-
-        must_respond_with :success
-
-      end
-    end
-
-    describe "create" do
-      it "creates new product when logged in and given valid data" do
-
-
-        test_product = Product.new(product_data[:product])
-        test_product.must_be :valid?, "Product data was invalid. Please come fix this test."
-
-        expect {
-          post products_path, params: product_data
-        }.must_change('Product.count', 1)
-
-        must_redirect_to products_path
-
-        expect(Product.last.name).must_equal product_data[:product][:name]
-      end
-    end
-
-    describe "edit" do
-      it "responds with success for an existing product" do
+      expect{
         get edit_product_path(product)
 
-        must_respond_with :success
-      end
+      }.must_raise(ActionController::RoutingError)
 
-      it "responds with not_found for a product that doesn't exist" do
-        product.destroy
+    end
+  end
 
-        expect{
-          get edit_product_path(product)
+  describe "update" do
+    it "should show success when showing an existing product" do
 
-        }.must_raise(ActionController::RoutingError)
+      get product_path(product.id)
 
-      end
+      must_respond_with :success
     end
 
-    describe "update" do
-      it "should show success when showing an existing product" do
+    it "should return error message if product doesn't exist" do
 
+      product.destroy
+
+      expect{
         get product_path(product.id)
+      }.must_raise(ActionController::RoutingError)
 
-        must_respond_with :success
-      end
-
-      it "should return error message if product doesn't exist" do
-
-        product.destroy
-
-        expect{
-          get product_path(product.id)
-        }.must_raise(ActionController::RoutingError)
-
-      end
     end
+  end
 
-    describe "destroy" do
-      it "can destroy an existing product" do
-
-
-        expect {
-          delete product_path(product)
-        }.must_change('Product.count', -1)
+  describe "destroy" do
+    it "can destroy an existing product" do
 
 
-        must_redirect_to products_path
-      end
+      expect {
+        delete product_path(product)
+      }.must_change('Product.count', -1)
+
+
+      must_redirect_to products_path
     end
   end
 end
