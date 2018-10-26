@@ -79,4 +79,33 @@ describe Merchant do
       expect( @m.rating ).must_be_nil
     end
   end
+
+  describe 'total numbers of order items by status' do
+    it 'returns a correct total count of all items offered by a merchant' do
+      expect(@m.products.count).must_equal 3
+    end
+
+    it 'returns a correct total count of all order items for a merchant with status paid' do
+      expect(@m.paid_order_items.count).must_equal 1
+    end
+
+    it 'returns a correct total count of all order items for a merchant with status complete ' do
+      expect(@m.complete_order_items.count).must_equal 0
+    end
+  end
+
+  describe 'subtotals for order items by status' do
+
+    it 'returns a correct subtotal for all order items' do
+      expect(@m.all_order_items_subtotal).must_equal 11.94
+    end
+
+    it 'returns a correct subtotal for paid order items' do
+      expect(@m.paid_orders_subtotal).must_equal 1.99
+    end
+
+    it 'returns a correct subtotal for complete order items' do
+      expect(@m.completed_orders_subtotal).must_equal 0
+    end
+  end
 end
