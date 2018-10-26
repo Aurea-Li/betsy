@@ -1,6 +1,16 @@
 require "test_helper"
 describe OrderItemsController do
 
+  let (:order_item_data) {
+    {
+      order_item: {
+        quantity: 1,
+        status: 'pending',
+        product_id: Product.first.id
+      }
+    }
+  }
+
   describe "guest user" do
     describe "index" do
 
@@ -17,21 +27,10 @@ describe OrderItemsController do
     describe 'create' do
       it "creates new order for first item added to cart" do
 
-        order_item_data = {
-          order_item: {
-            quantity: 1,
-            status: 'pending',
-            product_id: Product.first.id
-          }
-        }
-
-        before = OrderItem.count
-
         expect {
           post order_items_path, params: order_item_data
         }.must_change('Order.count', +1)
 
-        expect(OrderItem.count).must_equal before + 1
 
         expect(flash[:status]).must_equal :success
         expect(flash[:result_text]).must_equal "Item successfully added to cart. "
@@ -79,32 +78,36 @@ describe OrderItemsController do
 
       it "shows an error if the quantity is greater than the product's stock" do
 
-        order_item_data = {
-          order_item: {
-            quantity: 20,
-            status: 'pending',
-            product_id: products(:product_two).id,
-            order_id: orders(:merchant).id
-          }
-        }
+        prod = Product.find(order_item_data[:order_item][:product_id])
+
+        stock = prod.stock
+
+        order_item_data[:order_item][:quantity] = stock + 1
+
+        expect{
+          post order_items_path, params: order_item_data
+        }.wont_change('OrderItem.count')
+
+        expect(flash[:status]).must_be :failure
+
+
+
+      end
+
+      it 'returns error if invalid order item' do
+
+        order_item_data[:order_item][:quantity] = -1
 
         test_item = OrderItem.new(order_item_data[:order_item])
-        before_stock = test_item.product.stock
-        # before_order = test_item.quantity
-        test_item.must_be :valid?, "OrderItem data was invalid. Please fix this test."
+        test_item.wont_be :valid?, "OrderItem data is not invalid. Please fix."
 
-        post order_items_path(order_item_data)
+        expect{
+          post order_items_path(order_item_data)
+        }.wont_change('OrderItem.count')
 
-        expect {
-          post order_items_path, params: order_item_data
-        }.wont_change('Order.count')
+        expect(flash[:status]).must_equal :failure
 
-        expect(test_item.product.stock).must_equal before_stock
-        order_item = OrderItem.find_by(
-          product_id: products(:product_two).id,
-          order_id: orders(:merchant).id
-        )
-        expect(order_item.quantity).must_equal 15
+
       end
     end
   end

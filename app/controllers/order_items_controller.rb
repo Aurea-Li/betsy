@@ -37,25 +37,48 @@ class OrderItemsController < ApplicationController
           flash[:status] = :failure
           flash[:result_text] = "Quantity requested exceeds stock. Please try again."
         end
-    else
-
-      @order_item.order_id = session[:order_id]
-
-      if @order_item.save
-
-        @order_item.reduce_stock
-
-
-        flash[:status] = :success
-        flash[:result_text] = "Item successfully added to cart. "
-
       else
 
-        flash[:status] = :failure
-        flash[:result_text] = "Error adding item to cart"
-      end
-    end
+        prod = @order_item.product
 
+        available_stock = prod.stock
+
+        if available_stock >= @order_item.quantity
+
+          @order_item.update(order: order)
+
+          if @order_item.save
+
+
+
+            @order_item.order_id = session[:order_id]
+            @order_item.reduce_stock
+
+
+
+
+            flash[:status] = :success
+            flash[:result_text] = "Item successfully added to cart. "
+          else
+
+
+            flash[:status] = :failure
+            flash[:result_text] = "Error added item to cart."
+          end
+
+
+        else
+
+
+
+          flash[:status] = :failure
+          flash[:result_text] = "Quantity requested exceeds stock. Please try again."
+        end
+      end
+    else
+
+      flash[:status] = :failure
+      flash[:result_text] = "Error added item to cart."
     end
 
     redirect_back fallback_location: products_path
