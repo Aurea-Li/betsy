@@ -1,4 +1,3 @@
-require 'pry'
 class OrderItemsController < ApplicationController
 
   before_action :find_order_item, only: [:show, :edit, :update, :destroy, :status]

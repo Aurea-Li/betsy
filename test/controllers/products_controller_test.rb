@@ -1,6 +1,4 @@
 require "test_helper"
-require 'pry'
-
 describe ProductsController do
   let (:product_data) {
     {
