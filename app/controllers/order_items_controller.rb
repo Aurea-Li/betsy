@@ -49,18 +49,12 @@ class OrderItemsController < ApplicationController
 
           if @order_item.save
 
-
-
             @order_item.order_id = session[:order_id]
             @order_item.reduce_stock
-
-
-
 
             flash[:status] = :success
             flash[:result_text] = "Item successfully added to cart. "
           else
-
 
             flash[:status] = :failure
             flash[:result_text] = "Error added item to cart."

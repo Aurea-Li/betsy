@@ -88,7 +88,7 @@ describe OrderItemsController do
           post order_items_path, params: order_item_data
         }.wont_change('OrderItem.count')
 
-        expect(flash[:status]).must_be :failure
+        expect(flash[:status]).must_equal :failure
 
 
 
