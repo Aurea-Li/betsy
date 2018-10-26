@@ -69,10 +69,7 @@ class OrderItemsController < ApplicationController
           flash[:result_text] = "Quantity requested exceeds stock. Please try again."
         end
       end
-    else
 
-      flash[:status] = :failure
-      flash[:result_text] = "Error added item to cart."
     end
 
     redirect_back fallback_location: products_path

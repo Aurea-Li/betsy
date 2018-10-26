@@ -11,6 +11,10 @@ describe OrderItemsController do
     }
   }
 
+  let (:prod) {
+    Product.find(order_item_data[:order_item][:product_id])
+  }
+
   describe "guest user" do
     describe "index" do
 
@@ -78,8 +82,6 @@ describe OrderItemsController do
 
       it "shows an error if the quantity is greater than the product's stock" do
 
-        prod = Product.find(order_item_data[:order_item][:product_id])
-
         stock = prod.stock
 
         order_item_data[:order_item][:quantity] = stock + 1
@@ -91,6 +93,26 @@ describe OrderItemsController do
         expect(flash[:status]).must_equal :failure
 
 
+
+      end
+
+      it 'returns error if trying to add existing order item that exceeds stock' do
+
+        expect {
+          post order_items_path, params: order_item_data
+        }.must_change('OrderItem.count', +1)
+
+        remaining_stock = prod.stock - order_item_data[:order_item][:quantity]
+
+        order_item_data[:order_item][:quantity] = remaining_stock + 1
+
+
+        expect {
+          post order_items_path, params: order_item_data
+        }.wont_change('OrderItem.count')
+
+        expect(flash[:status]).must_equal :failure
+        expect(flash[:result_text]).must_equal "Quantity requested exceeds stock. Please try again."
 
       end
 
@@ -110,5 +132,11 @@ describe OrderItemsController do
 
       end
     end
+
+    describe "update" do
+
+    end
+
+
   end
 end
